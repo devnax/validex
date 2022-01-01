@@ -31,15 +31,26 @@ var parseType = function parseType(compare) {
   };
 };
 
-var _min$email$equal$url$;
-
-var MESSAGES = (_min$email$equal$url$ = {
-  min: '$field minimum length $compare',
+var MESSAGES = {
   email: '$field must be an email!',
-  equal: '$field is not equal with $compare',
+  equal: '$field must be same as $compare',
   url: '$field must be a valid URL',
-  max: '$field maximum length of $compare'
-}, _min$email$equal$url$["min"] = '$field minimum length of $compare', _min$email$equal$url$.required = '$field is required!', _min$email$equal$url$.type = '$field must be a $compare', _min$email$equal$url$.minWords = '$field minimum words limit $compare', _min$email$equal$url$.maxWords = '$field maximum words limit $compare', _min$email$equal$url$.minNumberRange = '$field minimum Amount of $compare', _min$email$equal$url$.maxNumberRange = '$field maximum Amount of $compare', _min$email$equal$url$.uppercase = '$field must be uppercase!', _min$email$equal$url$.lowercase = '$field must be lowercase!', _min$email$equal$url$.capitalize = '$field must be capitalize!', _min$email$equal$url$.notAllowedChars = '$compare these charters are not allowed for $field field', _min$email$equal$url$.notAllowedSpecialChars = 'special charters are not allowed for $field field', _min$email$equal$url$.notAllowedWords = '$compare these words are not allowed for $field field', _min$email$equal$url$.hex = '$field must be a hexadecimal charters', _min$email$equal$url$);
+  max: '$field maximum length of $compare',
+  min: '$field minimum length of $compare',
+  required: '$field is required!',
+  type: '$field must be $compare',
+  minWords: '$field minimum words limit $compare',
+  maxWords: '$field maximum words limit $compare',
+  minNumberRange: '$field minimum Range of $compare',
+  maxNumberRange: '$field maximum Range of $compare',
+  uppercase: '$field must be uppercase!',
+  lowercase: '$field must be lowercase!',
+  capitalize: '$field must be capitalize!',
+  notAllowedChars: '$compare these charters are not allowed in $field',
+  notAllowedSpecialChars: 'special charters are not allowed in $field',
+  notAllowedWords: '$compare these words are not allowed in $field',
+  hex: '$field must be a hexadecimal charters'
+};
 
 var min = (function (value, compare) {
   if (isString(value)) {
@@ -89,7 +100,13 @@ var isType = (function (value, compare) {
 var isEmail = (function (value) {
   if (isString(value)) {
     if (value.length) {
-      return value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      var valid = value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+      if (valid != null) {
+        return true;
+      }
+
+      return false;
     }
   }
 });
@@ -212,7 +229,7 @@ var notAllowedChars = (function (value, compare) {
   }
 });
 
-var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 var notAllowedSpecialChars = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {

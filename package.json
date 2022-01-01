@@ -1,7 +1,7 @@
 {
   "name": "validex",
-  "version": "1.0.1",
-  "description": "powerful form validation validation",
+  "version": "1.0.2",
+  "description": "The fastest and simple validator",
   "author": "Naxrul Ahmed",
   "license": "MIT",
   "repository": "Naxrul Ahmed/validex",

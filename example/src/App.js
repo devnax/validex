@@ -7,11 +7,11 @@ const App = () => {
   const validator = validex({name: state}, {
     name: {
       min: 2,
-      type: 'number',
-      maxNumberRange: 9000
+      equal: 'nax'
     }
   })
   validator.validate()
+
 
   return <div>
     <input type="text" value={state} onChange={(e) => setState(e.target.value)}/>

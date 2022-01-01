@@ -83,7 +83,7 @@ const validator =  validex(data, schema)
 
 validator.validate()
 
-if(validator.hasError()){
+if(!validator.hasError()){
 	// .....
 }
 

@@ -1,24 +1,12 @@
-var isFunction = function isFunction(val) {
-  return typeof val === 'function' ? true : false;
-};
-var isArray = function isArray(val) {
-  return typeof val === 'object' && Array.isArray(val) ? true : false;
-};
-var isObject = function isObject(val) {
-  return typeof val === 'object' && val !== null && !Array.isArray(val) ? true : false;
-};
-var isString = function isString(val) {
-  return typeof val === 'string' ? true : false;
-};
-var isNumber = function isNumber(val) {
-  return !isNaN(val) ? true : false;
-};
-var isInteger = function isInteger(val) {
-  return typeof val === 'number' ? true : false;
-};
-var parseType = function parseType(compare) {
-  var message = null;
-  var compareVal = compare;
+const isFunction = val => typeof val === 'function' ? true : false;
+const isArray = val => typeof val === 'object' && Array.isArray(val) ? true : false;
+const isObject = val => typeof val === 'object' && val !== null && !Array.isArray(val) ? true : false;
+const isString = val => typeof val === 'string' ? true : false;
+const isNumber = val => !isNaN(val) ? true : false;
+const isInteger = val => typeof val === 'number' ? true : false;
+const parseType = compare => {
+  let message = null;
+  let compareVal = compare;
 
   if (isArray(compare)) {
     compareVal = compare[0];
@@ -26,22 +14,33 @@ var parseType = function parseType(compare) {
   }
 
   return {
-    message: message,
-    compareVal: compareVal
+    message,
+    compareVal
   };
 };
 
-var _min$email$equal$url$;
-
-var MESSAGES = (_min$email$equal$url$ = {
-  min: '$field minimum length $compare',
+var MESSAGES = {
   email: '$field must be an email!',
-  equal: '$field is not equal with $compare',
+  equal: '$field must be same as $compare',
   url: '$field must be a valid URL',
-  max: '$field maximum length of $compare'
-}, _min$email$equal$url$["min"] = '$field minimum length of $compare', _min$email$equal$url$.required = '$field is required!', _min$email$equal$url$.type = '$field must be a $compare', _min$email$equal$url$.minWords = '$field minimum words limit $compare', _min$email$equal$url$.maxWords = '$field maximum words limit $compare', _min$email$equal$url$.minNumberRange = '$field minimum Amount of $compare', _min$email$equal$url$.maxNumberRange = '$field maximum Amount of $compare', _min$email$equal$url$.uppercase = '$field must be uppercase!', _min$email$equal$url$.lowercase = '$field must be lowercase!', _min$email$equal$url$.capitalize = '$field must be capitalize!', _min$email$equal$url$.notAllowedChars = '$compare these charters are not allowed for $field field', _min$email$equal$url$.notAllowedSpecialChars = 'special charters are not allowed for $field field', _min$email$equal$url$.notAllowedWords = '$compare these words are not allowed for $field field', _min$email$equal$url$.hex = '$field must be a hexadecimal charters', _min$email$equal$url$);
+  max: '$field maximum length of $compare',
+  min: '$field minimum length of $compare',
+  required: '$field is required!',
+  type: '$field must be $compare',
+  minWords: '$field minimum words limit $compare',
+  maxWords: '$field maximum words limit $compare',
+  minNumberRange: '$field minimum Range of $compare',
+  maxNumberRange: '$field maximum Range of $compare',
+  uppercase: '$field must be uppercase!',
+  lowercase: '$field must be lowercase!',
+  capitalize: '$field must be capitalize!',
+  notAllowedChars: '$compare these charters are not allowed in $field',
+  notAllowedSpecialChars: 'special charters are not allowed in $field',
+  notAllowedWords: '$compare these words are not allowed in $field',
+  hex: '$field must be a hexadecimal charters'
+};
 
-var min = (function (value, compare) {
+var min = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
       return value.length >= compare;
@@ -49,7 +48,7 @@ var min = (function (value, compare) {
   }
 });
 
-var max = (function (value, compare) {
+var max = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
       return value.length <= compare;
@@ -57,28 +56,18 @@ var max = (function (value, compare) {
   }
 });
 
-var types = {
-  bool: function bool(val) {
-    return typeof val === 'boolean';
-  },
-  number: function number(val) {
-    return !isNaN(val);
-  },
-  string: function string(val) {
-    return isString(val);
-  },
-  array: function array(val) {
-    return isArray(val);
-  },
-  object: function object(val) {
-    return isObject(val);
-  }
+const types = {
+  bool: val => typeof val === 'boolean',
+  number: val => !isNaN(val),
+  string: val => isString(val),
+  array: val => isArray(val),
+  object: val => isObject(val)
 };
-var isType = (function (value, compare) {
+var isType = ((value, compare) => {
   if (value) {
     if (!types.hasOwnProperty(compare)) {
-      message = "Invalide type given";
-      console.error(message, "Available Types are " + Object.keys(types).join(', '));
+      message = `Invalide type given`;
+      console.error(message, `Available Types are ${Object.keys(types).join(', ')}`);
       return false;
     }
 
@@ -86,22 +75,28 @@ var isType = (function (value, compare) {
   }
 });
 
-var isEmail = (function (value) {
+var isEmail = (value => {
   if (isString(value)) {
     if (value.length) {
-      return value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      const valid = value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+      if (valid != null) {
+        return true;
+      }
+
+      return false;
     }
   }
 });
 
-var compare = (function (value, compare) {
+var compare = ((value, compare) => {
   if (!isFunction(compare)) {
-    console.error("compare must be a function");
+    console.error(`compare must be a function`);
     return false;
   }
 
   if (value) {
-    var check = compare(value);
+    const check = compare(value);
 
     if (typeof check === 'boolean') {
       return check;
@@ -109,7 +104,7 @@ var compare = (function (value, compare) {
   }
 });
 
-var required = (function (value) {
+var required = (value => {
   if (!value) {
     return false;
   } else if (isString(value) || isArray(value)) {
@@ -121,7 +116,7 @@ var required = (function (value) {
   }
 });
 
-var isEqual = (function (value, compare) {
+var isEqual = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
       return value.toLowerCase() === compare.toLowerCase();
@@ -129,7 +124,7 @@ var isEqual = (function (value, compare) {
   }
 });
 
-var isUrl = (function (value) {
+var isUrl = (value => {
   if (isString(value)) {
     if (value.length) {
       if (!value.toLowerCase().match(/ /g)) {
@@ -145,7 +140,7 @@ var isUrl = (function (value) {
   }
 });
 
-var minWords = (function (value, compare) {
+var minWords = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
       return value.split(' ').length >= compare;
@@ -153,7 +148,7 @@ var minWords = (function (value, compare) {
   }
 });
 
-var maxWords = (function (value, compare) {
+var maxWords = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
       return value.split(' ').length <= compare;
@@ -161,7 +156,7 @@ var maxWords = (function (value, compare) {
   }
 });
 
-var isUpperCase = (function (value) {
+var isUpperCase = (value => {
   if (isString(value)) {
     if (value.length) {
       return value === value.toUpperCase();
@@ -169,7 +164,7 @@ var isUpperCase = (function (value) {
   }
 });
 
-var isLowerCase = (function (value) {
+var isLowerCase = (value => {
   if (isString(value)) {
     if (value.length) {
       return value === value.toLowerCase();
@@ -177,17 +172,15 @@ var isLowerCase = (function (value) {
   }
 });
 
-var isCapitalize = (function (value) {
+var isCapitalize = (value => {
   if (isString(value)) {
     if (value.length) {
-      return value === value.replace(/(?:^|\s)\S/g, function (w) {
-        return w.toUpperCase();
-      });
+      return value === value.replace(/(?:^|\s)\S/g, w => w.toUpperCase());
     }
   }
 });
 
-var minNumberRange = (function (value, compare) {
+var minNumberRange = ((value, compare) => {
   if (isNumber(value) || isNumber(value)) {
     if (value.toString().length) {
       return parseInt(value) >= parseInt(compare);
@@ -195,7 +188,7 @@ var minNumberRange = (function (value, compare) {
   }
 });
 
-var maxNumberRange = (function (value, compare) {
+var maxNumberRange = ((value, compare) => {
   if (isNumber(value) || isNumber(value)) {
     if (value.toString().length) {
       return parseInt(value) <= parseInt(compare);
@@ -203,17 +196,17 @@ var maxNumberRange = (function (value, compare) {
   }
 });
 
-var notAllowedChars = (function (value, compare) {
+var notAllowedChars = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
-      var format = new RegExp('[' + compare + ']');
+      const format = new RegExp('[' + compare + ']');
       return !format.test(value);
     }
   }
 });
 
-var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-var notAllowedSpecialChars = (function (value, compare) {
+var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+var notAllowedSpecialChars = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
       return !format.test(value);
@@ -221,18 +214,18 @@ var notAllowedSpecialChars = (function (value, compare) {
   }
 });
 
-var notAllowedWords = (function (value, compare) {
+var notAllowedWords = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
-      var words = compare.replace(',', "|");
-      var pattern = new RegExp(words);
+      const words = compare.replace(',', "|");
+      const pattern = new RegExp(words);
       return !value.match(pattern);
     }
   }
 });
 
 var format$1 = /[0-9A-Fa-f]{6}/g;
-var isHex = (function (value) {
+var isHex = (value => {
   if (isString(value)) {
     if (value.length) {
       if (format$1.test(value)) {
@@ -244,7 +237,7 @@ var isHex = (function (value) {
   }
 });
 
-var TYPES = {
+const TYPES = {
   type: isType,
   email: isEmail,
   equal: isEqual,
@@ -253,29 +246,29 @@ var TYPES = {
   uppercase: isUpperCase,
   lowercase: isLowerCase,
   capitalize: isCapitalize,
-  min: min,
-  max: max,
-  compare: compare,
-  required: required,
-  minWords: minWords,
-  maxWords: maxWords,
-  minNumberRange: minNumberRange,
-  maxNumberRange: maxNumberRange,
-  notAllowedChars: notAllowedChars,
-  notAllowedSpecialChars: notAllowedSpecialChars,
-  notAllowedWords: notAllowedWords
+  min,
+  max,
+  compare,
+  required,
+  minWords,
+  maxWords,
+  minNumberRange,
+  maxNumberRange,
+  notAllowedChars,
+  notAllowedSpecialChars,
+  notAllowedWords
 };
-var index = (function (data, schema) {
-  var info = {
+var index = ((data, schema) => {
+  const info = {
     data: isObject(data) ? data : {},
     schema: isObject(schema) ? schema : {},
     errors: {},
     callback: null,
-    set: function set(name, value, _schema) {
+    set: (name, value, _schema) => {
       info.data[name] = value;
       info.schema[name] = _schema;
     },
-    hasError: function hasError(name) {
+    hasError: name => {
       if (name === undefined) {
         return Object.keys(info.errors).length ? true : false;
       }
@@ -284,22 +277,22 @@ var index = (function (data, schema) {
         return Object.keys(info.errors[name]).length ? true : false;
       }
     },
-    errorMessage: function errorMessage(name) {
+    errorMessage: name => {
       if (isString(name)) {
-        var errors = info.getErrors(name);
+        const errors = info.getErrors(name);
 
         if (errors) {
           return errors[Object.keys(errors)[0]];
         }
       } else {
-        for (var _name in info.data) {
+        for (let _name in info.data) {
           if (info.hasError(_name)) {
             return info.errorMessage(_name);
           }
         }
       }
     },
-    getErrors: function getErrors(name) {
+    getErrors: name => {
       if (!name) {
         return info.errors;
       }
@@ -308,8 +301,8 @@ var index = (function (data, schema) {
         return Object.keys(info.errors[name]) ? info.errors[name] : false;
       }
     },
-    removeError: function removeError(name, type) {
-      var errors = info.getErrors(name);
+    removeError: (name, type) => {
+      const errors = info.getErrors(name);
 
       if (errors) {
         if (errors.hasOwnProperty(type)) {
@@ -321,7 +314,7 @@ var index = (function (data, schema) {
         }
       }
     },
-    removeErrors: function removeErrors(name) {
+    removeErrors: name => {
       if (info.hasError(name)) {
         delete info.errors[name];
 
@@ -332,35 +325,35 @@ var index = (function (data, schema) {
     }
   };
 
-  info.validate = function () {
-    for (var fieldName in info.data) {
+  info.validate = () => {
+    for (let fieldName in info.data) {
       if (info.schema[fieldName]) {
-        var value = info.data[fieldName];
-        var schem = info.schema[fieldName];
+        let value = info.data[fieldName];
+        const schem = info.schema[fieldName];
 
         if (isString(value)) {
           value = value.trim();
         }
 
         if (!isObject(schem)) {
-          console.error(new Error("You passed wrong format in the schema for this " + fieldName));
+          console.error(new Error(`You passed wrong format in the schema for this ${fieldName}`));
           break;
         }
 
-        for (var type in schem) {
+        for (let type in schem) {
           if (type == 'nameAlias') {
             continue;
           }
 
           if (TYPES.hasOwnProperty(type)) {
-            var _parseType = parseType(schem[type]),
-                message = _parseType.message,
-                compareVal = _parseType.compareVal;
-
-            var compared = TYPES[type](value, compareVal);
+            let {
+              message,
+              compareVal
+            } = parseType(schem[type]);
+            const compared = TYPES[type](value, compareVal);
 
             if (compared === false) {
-              var field = schem['nameAlias'] || fieldName;
+              const field = schem['nameAlias'] || fieldName;
 
               if (!message && MESSAGES.hasOwnProperty(type)) {
                 message = MESSAGES[type];
