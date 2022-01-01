@@ -46,9 +46,10 @@ validator.validate()
 | notAllowedSpecialChars       | `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/` these charters are not allowed, `(boolean)`|
 | notAllowedWords   | check the value contained the some words or not. `(string)` example: `"Hello World, Propgrammer, any"`|
 | compare     | validate the value by your self. `(function)`|
+| nameAlias     | just replace the field name. `(string)`|
 
 
-### example
+### Example
 ```js
 import validex from  'validex'
 
@@ -58,17 +59,21 @@ const data = {
 	user_age: 20
 }
 const schema = {
+    
 	user_name: {
+        nameAlias: "User Name",
 		required: true,
 		type: 'string',
 		capitalize: true,
 		notAllowedSpecialChars: true
 	},
 	user_email: {
+        nameAlias: "Email",
 		email: true,
 		lowercase: true
 	},
 	user_age: {
+        nameAlias: "Age",
 		type: 'number',
 		minNumberRange: 18,
 		maxNumberRange: 30
@@ -118,11 +123,12 @@ const schema = {
 |`getErrors`| get all the errors with an `object`. If you pass the field name then you can get just the field errors|
 |`removeError`| if you want you can remove the field error. `removeError('user_name', 'min')` it will remove just user_name min type error|
 |`removeErrors`| remove all field errors. `removeError('user_name')` it will remove all user_name errors.|
+|`validate`| validating the data.|
 
 
 
 ## Validator Callback
-You can set the validator callback. the call will call when you validate or remove errro
+You can set the validator callback. the call will call when you validate or remove error
 
 ```js
 validator.callback = (type, validator) => {
