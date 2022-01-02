@@ -17,9 +17,14 @@ import isCapitalize from './types/isCapitalize'
 import minNumberRange from './types/minNumberRange'
 import maxNumberRange from './types/maxNumberRange'
 import notAllowedChars from './types/notAllowedChars'
+import notAllowedCharters from './types/notAllowedCharters'
 import notAllowedSpecialChars from './types/notAllowedSpecialChars'
 import notAllowedWords from './types/notAllowedWords'
 import isHex from './types/isHex'
+import notAllowedNumber from './types/notAllowedNumber'
+import regex from './types/regex'
+import strongPassword from './types/strongPassword'
+import mediumPassword from './types/mediumPassword'
 
 
 export {
@@ -36,8 +41,13 @@ export {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
+    notAllowedCharters,
     notAllowedSpecialChars,
     notAllowedWords,
+    notAllowedNumber,
+    regex,
+    strongPassword,
+    mediumPassword,
 }
 
 
@@ -60,8 +70,13 @@ const TYPES = {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
+    notAllowedCharters,
     notAllowedSpecialChars,
     notAllowedWords,
+    notAllowedNumber,
+    regex,
+    strongPassword,
+    mediumPassword
 }
 
 

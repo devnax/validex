@@ -7,7 +7,7 @@ const App = () => {
   const validator = validex({name: state}, {
     name: {
       min: 2,
-      equal: 'nax'
+      mediumPassword: true
     }
   })
   validator.validate()

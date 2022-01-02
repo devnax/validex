@@ -14,7 +14,12 @@ export default {
     lowercase: '$field must be lowercase!',
     capitalize: '$field must be capitalize!',
     notAllowedChars: '$compare these charters are not allowed in $field',
+    notAllowedCharters: 'charters are not allowed in $field',
     notAllowedSpecialChars: 'special charters are not allowed in $field',
     notAllowedWords: '$compare these words are not allowed in $field',
+    notAllowedNumber: 'number are not allowed in $field',
     hex: '$field must be a hexadecimal charters',
+    regex: 'wrong value passed in $field',
+    strongPassword: 'use 8 or more characters with a mix of letters, numbers & symbols in $field',
+    mediumPassword: 'use 6 or more characters with a mix of letters, numbers & symbols in $field',
 }

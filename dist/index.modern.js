@@ -35,9 +35,14 @@ var MESSAGES = {
   lowercase: '$field must be lowercase!',
   capitalize: '$field must be capitalize!',
   notAllowedChars: '$compare these charters are not allowed in $field',
+  notAllowedCharters: 'charters are not allowed in $field',
   notAllowedSpecialChars: 'special charters are not allowed in $field',
   notAllowedWords: '$compare these words are not allowed in $field',
-  hex: '$field must be a hexadecimal charters'
+  notAllowedNumber: 'number are not allowed in $field',
+  hex: '$field must be a hexadecimal charters',
+  regex: 'wrong value passed in $field',
+  strongPassword: 'use 8 or more characters with a mix of letters, numbers & symbols in $field',
+  mediumPassword: 'use 6 or more characters with a mix of letters, numbers & symbols in $field'
 };
 
 var min = ((value, compare) => {
@@ -205,11 +210,22 @@ var notAllowedChars = ((value, compare) => {
   }
 });
 
-var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+var format = /^([^a-zA-Z]*)$/;
+var notAllowedCharters = (value => {
+  if (isString(value) || isNumber(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format.test(value);
+    }
+  }
+});
+
+var format$1 = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 var notAllowedSpecialChars = ((value, compare) => {
   if (isString(value)) {
     if (value.length) {
-      return !format.test(value);
+      return !format$1.test(value);
     }
   }
 });
@@ -224,15 +240,58 @@ var notAllowedWords = ((value, compare) => {
   }
 });
 
-var format$1 = /[0-9A-Fa-f]{6}/g;
+var format$2 = /[0-9A-Fa-f]{6}/g;
 var isHex = (value => {
   if (isString(value)) {
     if (value.length) {
-      if (format$1.test(value)) {
+      if (format$2.test(value)) {
         return true;
       }
 
       return false;
+    }
+  }
+});
+
+var format$3 = /^([^0-9]*)$/;
+var notAllowedNumber = (value => {
+  if (isString(value) || isNumber(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format$3.test(value);
+    }
+  }
+});
+
+var regex = ((value, compare) => {
+  if (isString(value) || isNumber(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return compare.test(value);
+    }
+  }
+});
+
+let format$4 = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+var strongPassword = (value => {
+  if (isString(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format$4.test(value);
+    }
+  }
+});
+
+let format$5 = new RegExp('((?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
+var mediumPassword = (value => {
+  if (isString(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format$5.test(value);
     }
   }
 });
@@ -255,8 +314,13 @@ const TYPES = {
   minNumberRange,
   maxNumberRange,
   notAllowedChars,
+  notAllowedCharters,
   notAllowedSpecialChars,
-  notAllowedWords
+  notAllowedWords,
+  notAllowedNumber,
+  regex,
+  strongPassword,
+  mediumPassword
 };
 var index = ((data, schema) => {
   const info = {
@@ -384,5 +448,5 @@ var index = ((data, schema) => {
 });
 
 export default index;
-export { isCapitalize, isEmail, isEqual, isHex, isLowerCase, isType, isUpperCase, isUrl, maxNumberRange, maxWords, minNumberRange, minWords, notAllowedChars, notAllowedSpecialChars, notAllowedWords };
+export { isCapitalize, isEmail, isEqual, isHex, isLowerCase, isType, isUpperCase, isUrl, maxNumberRange, maxWords, mediumPassword, minNumberRange, minWords, notAllowedChars, notAllowedCharters, notAllowedNumber, notAllowedSpecialChars, notAllowedWords, regex, strongPassword };
 //# sourceMappingURL=index.modern.js.map

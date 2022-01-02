@@ -43,9 +43,14 @@ validator.validate()
 | maxWords       | check the maximum words length. `(integer)`|
 | minWords       | check the minimum words length. `(integer)`|
 | notAllowedChars| check the value contained the some charters or not. `(string)` example: `"abcd.#@"`|
+| notAllowedCharters| `a-zA-Z` charters are not allowed. `(boolean)`|
+| notAlloweNumber| `0-9` numbers are not allowed. `(boolean)`|
 | notAllowedSpecialChars       | `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/` these charters are not allowed, `(boolean)`|
 | notAllowedWords   | check the value contained the some words or not. `(string)` example: `"Hello World, Propgrammer, any"`|
 | compare     | validate the value by your self. `(function)`|
+| regex     | compare with regular expression. `(Regex)`|
+| strongPassword     | 8 or more characters with a mix of letters, numbers & symbols. `(boolean)`|
+| mediumPassword     | 6 or more characters with a mix of letters, numbers & symbols. `(boolean)`|
 | nameAlias     | just replace the field name. `(string)`|
 
 
@@ -172,8 +177,11 @@ You validate the value by your self. `@return type boolean`.
         minNumberRange,
         maxNumberRange,
         notAllowedChars,
+        notAllowedCharters,
+        notAllowedNumber,
         notAllowedSpecialChars,
         notAllowedWords,
+        regex
     } from 'validex'
 
     // every function has two arguments
@@ -192,9 +200,13 @@ You validate the value by your self. `@return type boolean`.
     minNumberRange(value, length)
     maxNumberRange(value, length)
     notAllowedChars(value, charters)
+    notAllowedCharters(value)
+    notAllowedNumber(value)
     notAllowedSpecialChars(value)
     notAllowedWords(value, 'Hello World, Programmer')
-
+    regex(value, expression),
+    strongPassword(value),
+    mediumPassword(value),
 ```
 
 

@@ -47,9 +47,14 @@ var MESSAGES = {
   lowercase: '$field must be lowercase!',
   capitalize: '$field must be capitalize!',
   notAllowedChars: '$compare these charters are not allowed in $field',
+  notAllowedCharters: 'charters are not allowed in $field',
   notAllowedSpecialChars: 'special charters are not allowed in $field',
   notAllowedWords: '$compare these words are not allowed in $field',
-  hex: '$field must be a hexadecimal charters'
+  notAllowedNumber: 'number are not allowed in $field',
+  hex: '$field must be a hexadecimal charters',
+  regex: 'wrong value passed in $field',
+  strongPassword: 'use 8 or more characters with a mix of letters, numbers & symbols in $field',
+  mediumPassword: 'use 6 or more characters with a mix of letters, numbers & symbols in $field'
 };
 
 var min = (function (value, compare) {
@@ -229,11 +234,22 @@ var notAllowedChars = (function (value, compare) {
   }
 });
 
-var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+var format = /^([^a-zA-Z]*)$/;
+var notAllowedCharters = (function (value) {
+  if (isString(value) || isNumber(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format.test(value);
+    }
+  }
+});
+
+var format$1 = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 var notAllowedSpecialChars = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
-      return !format.test(value);
+      return !format$1.test(value);
     }
   }
 });
@@ -248,15 +264,58 @@ var notAllowedWords = (function (value, compare) {
   }
 });
 
-var format$1 = /[0-9A-Fa-f]{6}/g;
+var format$2 = /[0-9A-Fa-f]{6}/g;
 var isHex = (function (value) {
   if (isString(value)) {
     if (value.length) {
-      if (format$1.test(value)) {
+      if (format$2.test(value)) {
         return true;
       }
 
       return false;
+    }
+  }
+});
+
+var format$3 = /^([^0-9]*)$/;
+var notAllowedNumber = (function (value) {
+  if (isString(value) || isNumber(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format$3.test(value);
+    }
+  }
+});
+
+var regex = (function (value, compare) {
+  if (isString(value) || isNumber(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return compare.test(value);
+    }
+  }
+});
+
+var format$4 = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+var strongPassword = (function (value) {
+  if (isString(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format$4.test(value);
+    }
+  }
+});
+
+var format$5 = new RegExp('((?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
+var mediumPassword = (function (value) {
+  if (isString(value)) {
+    value = value.toString();
+
+    if (value.length) {
+      return format$5.test(value);
     }
   }
 });
@@ -279,8 +338,13 @@ var TYPES = {
   minNumberRange: minNumberRange,
   maxNumberRange: maxNumberRange,
   notAllowedChars: notAllowedChars,
+  notAllowedCharters: notAllowedCharters,
   notAllowedSpecialChars: notAllowedSpecialChars,
-  notAllowedWords: notAllowedWords
+  notAllowedWords: notAllowedWords,
+  notAllowedNumber: notAllowedNumber,
+  regex: regex,
+  strongPassword: strongPassword,
+  mediumPassword: mediumPassword
 };
 var index = (function (data, schema) {
   var info = {
@@ -418,9 +482,14 @@ exports.isUpperCase = isUpperCase;
 exports.isUrl = isUrl;
 exports.maxNumberRange = maxNumberRange;
 exports.maxWords = maxWords;
+exports.mediumPassword = mediumPassword;
 exports.minNumberRange = minNumberRange;
 exports.minWords = minWords;
 exports.notAllowedChars = notAllowedChars;
+exports.notAllowedCharters = notAllowedCharters;
+exports.notAllowedNumber = notAllowedNumber;
 exports.notAllowedSpecialChars = notAllowedSpecialChars;
 exports.notAllowedWords = notAllowedWords;
+exports.regex = regex;
+exports.strongPassword = strongPassword;
 //# sourceMappingURL=index.js.map
