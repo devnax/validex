@@ -235,7 +235,7 @@ var notAllowedChars = (function (value, compare) {
 });
 
 var format = /^([^a-zA-Z]*)$/;
-var notAllowedCharters = (function (value) {
+var notAllowedCharaters = (function (value) {
   if (isString(value) || isNumber(value)) {
     value = value.toString();
 
@@ -338,7 +338,7 @@ var TYPES = {
   minNumberRange: minNumberRange,
   maxNumberRange: maxNumberRange,
   notAllowedChars: notAllowedChars,
-  notAllowedCharters: notAllowedCharters,
+  notAllowedCharaters: notAllowedCharaters,
   notAllowedSpecialChars: notAllowedSpecialChars,
   notAllowedWords: notAllowedWords,
   notAllowedNumber: notAllowedNumber,
@@ -361,53 +361,23 @@ var index = (function (data, schema) {
         return Object.keys(info.errors).length ? true : false;
       }
 
-      if (info.errors.hasOwnProperty(name)) {
-        return Object.keys(info.errors[name]).length ? true : false;
+      if (info.errors[name]) {
+        return true;
       }
     },
-    errorMessage: function errorMessage(name) {
-      if (isString(name)) {
-        var errors = info.getErrors(name);
-
-        if (errors) {
-          return errors[Object.keys(errors)[0]];
-        }
-      } else {
-        for (var _name in info.data) {
-          if (info.hasError(_name)) {
-            return info.errorMessage(_name);
-          }
-        }
-      }
-    },
-    getErrors: function getErrors(name) {
+    getError: function getError(name) {
       if (!name) {
         return info.errors;
       }
 
-      if (info.errors.hasOwnProperty(name)) {
-        return Object.keys(info.errors[name]) ? info.errors[name] : false;
-      }
+      return info.errors[name];
     },
-    removeError: function removeError(name, type) {
-      var errors = info.getErrors(name);
-
-      if (errors) {
-        if (errors.hasOwnProperty(type)) {
-          delete info.errors[name][type];
-
-          if (isFunction(info.callback)) {
-            info.callback('removeError', info);
-          }
-        }
-      }
-    },
-    removeErrors: function removeErrors(name) {
-      if (info.hasError(name)) {
+    removeError: function removeError(name) {
+      if (info.errors[name]) {
         delete info.errors[name];
 
         if (isFunction(info.callback)) {
-          info.callback('removeErrors', info);
+          info.callback('removeError', info);
         }
       }
     }
@@ -434,6 +404,10 @@ var index = (function (data, schema) {
           }
 
           if (TYPES.hasOwnProperty(type)) {
+            if (info.hasError(fieldName)) {
+              break;
+            }
+
             var _parseType = parseType(schem[type]),
                 message = _parseType.message,
                 compareVal = _parseType.compareVal;
@@ -449,14 +423,7 @@ var index = (function (data, schema) {
 
               message = message.replace('$field', field);
               message = message.replace('$compare', schem[type]);
-
-              if (!isArray(info.errors[fieldName])) {
-                info.errors[fieldName] = {};
-              }
-
-              info.errors[fieldName][type] = message;
-            } else {
-              info.removeError(fieldName, type);
+              info.errors[fieldName] = message;
             }
           }
         }
@@ -466,11 +433,13 @@ var index = (function (data, schema) {
     if (isFunction(info.callback)) {
       info.callback('validate', info);
     }
+
+    return info.hasError();
   };
 
   return info;
 });
 
 export default index;
-export { isCapitalize, isEmail, isEqual, isHex, isLowerCase, isType, isUpperCase, isUrl, maxNumberRange, maxWords, mediumPassword, minNumberRange, minWords, notAllowedChars, notAllowedCharters, notAllowedNumber, notAllowedSpecialChars, notAllowedWords, regex, strongPassword };
+export { isCapitalize, isEmail, isEqual, isHex, isLowerCase, isType, isUpperCase, isUrl, maxNumberRange, maxWords, mediumPassword, minNumberRange, minWords, notAllowedCharaters, notAllowedChars, notAllowedNumber, notAllowedSpecialChars, notAllowedWords, regex, strongPassword };
 //# sourceMappingURL=index.modern.js.map

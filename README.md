@@ -22,7 +22,9 @@ import validex from 'validex'
 
 const validator = validex(data: Object, options: Object)
 
-validator.validate()
+if(validator.validate()){
+
+}
 ```
 
 
@@ -67,33 +69,38 @@ const data = {
 	user_age: 20
 }
 const schema = {
-    
 	user_name: {
         nameAlias: "User Name",
-		required: true,
-		type: 'string',
-		capitalize: true,
-		notAllowedSpecialChars: true
+        required: true,
+        type: 'string',
+        capitalize: true,
+        notAllowedSpecialChars: true
 	},
 	user_email: {
         nameAlias: "Email",
-		email: true,
-		lowercase: true
+        email: true,
+        lowercase: true
 	},
 	user_age: {
         nameAlias: "Age",
-		type: 'number',
-		minNumberRange: 18,
-		maxNumberRange: 30
+        type: 'number',
+        minNumberRange: 18,
+        maxNumberRange: 30
 	}
 }
 const validator =  validex(data, schema)
 
-validator.validate()
+const isValidate = validator.validate()
 
+if(isValidate){
+	// .....
+}
+
+// Or You can the hasError function
 if(!validator.hasError()){
 	// .....
 }
+
 
 ```
 
@@ -111,8 +118,8 @@ the array contained two indexes
 
 const schema = {
 	user_name: {
-		required: [true, "$field must be required"], // or you can pass the arra
-		type: ['string', "$field must be type of string"],
+        required: [true, "$field must be required"], // or you can pass the arra
+        type: ['string', "$field must be type of string"],
         min: [10, "$field minumum charters of $compare"], // $compare will be replaced with 10
         max: 20,
         notAllowedSpecialChars: true,
@@ -126,11 +133,9 @@ const schema = {
 | Name     | Description |
 | :---        |    :----   | 
 |`set`| Set the data and schema individually. `set(fieldName, value, shema)` Schema will be an Object |
-| `hasError`    | check the error is exists or not `@return boolean`. you can also check the field error with this `hasError('user_name') hasError('user_email')` |
-| `errorMessage`  | get the first error message. If you pass the field name then you can get the the field first error message `errorMessage('user_name')`. `@return` error messsage or `null` |
-|`getErrors`| get all the errors with an `object`. If you pass the field name then you can get just the field errors|
+| `hasError`    | check the error is exists or not `@return boolean`. you can also check the field error with this `hasError('user_name')` |
+|`getError`| get all the errors with an `object`. If you pass the field name then you can get just the field error message|
 |`removeError`| if you want you can remove the field error. `removeError('user_name', 'min')` it will remove just user_name min type error|
-|`removeErrors`| remove all field errors. `removeError('user_name')` it will remove all user_name errors.|
 |`validate`| validating the data.|
 
 

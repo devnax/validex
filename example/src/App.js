@@ -2,20 +2,32 @@ import React, {useState} from 'react'
 
 import validex from 'validex'
 
-const App = () => {
-  const [state, setState] = useState('')
-  const validator = validex({name: state}, {
-    name: {
-      min: 2,
-      mediumPassword: true
-    }
-  })
-  validator.validate()
+const validator = validex({name: "asdsad"}, {
+  name: {
+    min: 2,
+    mediumPassword: true
+  }
+})
 
+const App = () => {
+  const [state, setState] = useState({
+    name: ''
+  })
+  
+  console.log(validator);
 
   return <div>
-    <input type="text" value={state} onChange={(e) => setState(e.target.value)}/>
-    <p style={{color: 'red'}}>{validator.errorMessage()}</p>
+    <input type="text" value={state.name} 
+    onChange={(e) => setState({...state, name: e.target.value})} onFocus={() => {
+      validator.removeError('name')
+      setState({...state,  cn: Math.random()})
+    }}/>
+    <p style={{color: 'red'}}>{validator.getError('name')}</p>
+    <button onClick={() => {
+      validator.validate()
+      
+      setState({...state, cn: Math.random()})
+    }}>Check</button>
   </div>
 }
 

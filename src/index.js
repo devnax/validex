@@ -17,7 +17,7 @@ import isCapitalize from './types/isCapitalize'
 import minNumberRange from './types/minNumberRange'
 import maxNumberRange from './types/maxNumberRange'
 import notAllowedChars from './types/notAllowedChars'
-import notAllowedCharters from './types/notAllowedCharters'
+import notAllowedCharaters from './types/notAllowedCharaters'
 import notAllowedSpecialChars from './types/notAllowedSpecialChars'
 import notAllowedWords from './types/notAllowedWords'
 import isHex from './types/isHex'
@@ -41,7 +41,7 @@ export {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
-    notAllowedCharters,
+    notAllowedCharaters,
     notAllowedSpecialChars,
     notAllowedWords,
     notAllowedNumber,
@@ -70,7 +70,7 @@ const TYPES = {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
-    notAllowedCharters,
+    notAllowedCharaters,
     notAllowedSpecialChars,
     notAllowedWords,
     notAllowedNumber,
@@ -100,48 +100,22 @@ export default (data, schema) => {
             if(name === undefined){
                 return Object.keys(info.errors).length ? true : false
             }
-            if(info.errors.hasOwnProperty(name)){
-                return Object.keys(info.errors[name]).length ? true : false
+            if(info.errors[name]){
+                return true
             }
         },
-        errorMessage: (name) => {
-            if(isString(name)){
-                const errors = info.getErrors(name)
-                if(errors){
-                    return errors[Object.keys(errors)[0]]
-                }
-            }else{
-                for(let name in info.data){
-                    if(info.hasError(name)){
-                        return info.errorMessage(name)
-                    }
-                }
-            }
-        },
-        getErrors: (name) => {
+        getError: (name) => {
             if(!name){
                 return info.errors
             }
-            if(info.errors.hasOwnProperty(name)){
-                return Object.keys(info.errors[name]) ? info.errors[name] : false
-            }
+            
+            return info.errors[name]
         },
-        removeError: (name, type) => {
-            const errors = info.getErrors(name)
-            if(errors){
-                if(errors.hasOwnProperty(type)){
-                    delete info.errors[name][type]
-                    if(isFunction(info.callback)){
-                        info.callback('removeError', info)
-                    }
-                }
-            }
-        },
-        removeErrors: (name) => {
-            if(info.hasError(name)){
+        removeError: (name) => {
+            if(info.errors[name]){
                 delete info.errors[name]
                 if(isFunction(info.callback)){
-                    info.callback('removeErrors', info)
+                    info.callback('removeError', info)
                 }
             }
         }
@@ -173,6 +147,9 @@ export default (data, schema) => {
 
                     if(TYPES.hasOwnProperty(type)){
 
+                        if(info.hasError(fieldName)){
+                            break;
+                        }
                         let {message, compareVal} = parseType(schem[type])
                         const compared = TYPES[type](value, compareVal)
 
@@ -183,13 +160,7 @@ export default (data, schema) => {
                             }
                             message = message.replace('$field', field)
                             message = message.replace('$compare', schem[type])
-
-                            if(!isArray(info.errors[fieldName])){
-                                info.errors[fieldName] = {}
-                            }
-                            info.errors[fieldName][type] = message
-                        }else{
-                            info.removeError(fieldName, type)
+                            info.errors[fieldName] = message
                         }
                         
                     }
@@ -197,9 +168,12 @@ export default (data, schema) => {
             }
         }
 
+
         if(isFunction(info.callback)){
             info.callback('validate', info)
         }
+
+        return info.hasError()
     }
 
     return info
