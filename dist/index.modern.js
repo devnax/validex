@@ -1,12 +1,24 @@
-const isFunction = val => typeof val === 'function' ? true : false;
-const isArray = val => typeof val === 'object' && Array.isArray(val) ? true : false;
-const isObject = val => typeof val === 'object' && val !== null && !Array.isArray(val) ? true : false;
-const isString = val => typeof val === 'string' ? true : false;
-const isNumber = val => !isNaN(val) ? true : false;
-const isInteger = val => typeof val === 'number' ? true : false;
-const parseType = compare => {
-  let message = null;
-  let compareVal = compare;
+var isFunction = function isFunction(val) {
+  return typeof val === 'function' ? true : false;
+};
+var isArray = function isArray(val) {
+  return typeof val === 'object' && Array.isArray(val) ? true : false;
+};
+var isObject = function isObject(val) {
+  return typeof val === 'object' && val !== null && !Array.isArray(val) ? true : false;
+};
+var isString = function isString(val) {
+  return typeof val === 'string' ? true : false;
+};
+var isNumber = function isNumber(val) {
+  return !isNaN(val) ? true : false;
+};
+var isInteger = function isInteger(val) {
+  return typeof val === 'number' ? true : false;
+};
+var parseType = function parseType(compare) {
+  var message = null;
+  var compareVal = compare;
 
   if (isArray(compare)) {
     compareVal = compare[0];
@@ -14,8 +26,8 @@ const parseType = compare => {
   }
 
   return {
-    message,
-    compareVal
+    message: message,
+    compareVal: compareVal
   };
 };
 
@@ -45,7 +57,7 @@ var MESSAGES = {
   mediumPassword: 'use 6 or more characters with a mix of letters, numbers & symbols in $field'
 };
 
-var min = ((value, compare) => {
+var min = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
       return value.length >= compare;
@@ -53,7 +65,7 @@ var min = ((value, compare) => {
   }
 });
 
-var max = ((value, compare) => {
+var max = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
       return value.length <= compare;
@@ -61,18 +73,28 @@ var max = ((value, compare) => {
   }
 });
 
-const types = {
-  bool: val => typeof val === 'boolean',
-  number: val => !isNaN(val),
-  string: val => isString(val),
-  array: val => isArray(val),
-  object: val => isObject(val)
+var types = {
+  bool: function bool(val) {
+    return typeof val === 'boolean';
+  },
+  number: function number(val) {
+    return !isNaN(val);
+  },
+  string: function string(val) {
+    return isString(val);
+  },
+  array: function array(val) {
+    return isArray(val);
+  },
+  object: function object(val) {
+    return isObject(val);
+  }
 };
-var isType = ((value, compare) => {
+var isType = (function (value, compare) {
   if (value) {
     if (!types.hasOwnProperty(compare)) {
-      message = `Invalide type given`;
-      console.error(message, `Available Types are ${Object.keys(types).join(', ')}`);
+      message = "Invalide type given";
+      console.error(message, "Available Types are " + Object.keys(types).join(', '));
       return false;
     }
 
@@ -80,10 +102,10 @@ var isType = ((value, compare) => {
   }
 });
 
-var isEmail = (value => {
+var isEmail = (function (value) {
   if (isString(value)) {
     if (value.length) {
-      const valid = value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      var valid = value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
       if (valid != null) {
         return true;
@@ -94,14 +116,14 @@ var isEmail = (value => {
   }
 });
 
-var compare = ((value, compare) => {
+var compare = (function (value, compare) {
   if (!isFunction(compare)) {
-    console.error(`compare must be a function`);
+    console.error("compare must be a function");
     return false;
   }
 
   if (value) {
-    const check = compare(value);
+    var check = compare(value);
 
     if (typeof check === 'boolean') {
       return check;
@@ -109,7 +131,7 @@ var compare = ((value, compare) => {
   }
 });
 
-var required = (value => {
+var required = (function (value) {
   if (!value) {
     return false;
   } else if (isString(value) || isArray(value)) {
@@ -121,7 +143,7 @@ var required = (value => {
   }
 });
 
-var isEqual = ((value, compare) => {
+var isEqual = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
       return value.toLowerCase() === compare.toLowerCase();
@@ -129,7 +151,7 @@ var isEqual = ((value, compare) => {
   }
 });
 
-var isUrl = (value => {
+var isUrl = (function (value) {
   if (isString(value)) {
     if (value.length) {
       if (!value.toLowerCase().match(/ /g)) {
@@ -145,7 +167,7 @@ var isUrl = (value => {
   }
 });
 
-var minWords = ((value, compare) => {
+var minWords = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
       return value.split(' ').length >= compare;
@@ -153,7 +175,7 @@ var minWords = ((value, compare) => {
   }
 });
 
-var maxWords = ((value, compare) => {
+var maxWords = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
       return value.split(' ').length <= compare;
@@ -161,7 +183,7 @@ var maxWords = ((value, compare) => {
   }
 });
 
-var isUpperCase = (value => {
+var isUpperCase = (function (value) {
   if (isString(value)) {
     if (value.length) {
       return value === value.toUpperCase();
@@ -169,7 +191,7 @@ var isUpperCase = (value => {
   }
 });
 
-var isLowerCase = (value => {
+var isLowerCase = (function (value) {
   if (isString(value)) {
     if (value.length) {
       return value === value.toLowerCase();
@@ -177,15 +199,17 @@ var isLowerCase = (value => {
   }
 });
 
-var isCapitalize = (value => {
+var isCapitalize = (function (value) {
   if (isString(value)) {
     if (value.length) {
-      return value === value.replace(/(?:^|\s)\S/g, w => w.toUpperCase());
+      return value === value.replace(/(?:^|\s)\S/g, function (w) {
+        return w.toUpperCase();
+      });
     }
   }
 });
 
-var minNumberRange = ((value, compare) => {
+var minNumberRange = (function (value, compare) {
   if (isNumber(value) || isNumber(value)) {
     if (value.toString().length) {
       return parseInt(value) >= parseInt(compare);
@@ -193,7 +217,7 @@ var minNumberRange = ((value, compare) => {
   }
 });
 
-var maxNumberRange = ((value, compare) => {
+var maxNumberRange = (function (value, compare) {
   if (isNumber(value) || isNumber(value)) {
     if (value.toString().length) {
       return parseInt(value) <= parseInt(compare);
@@ -201,17 +225,17 @@ var maxNumberRange = ((value, compare) => {
   }
 });
 
-var notAllowedChars = ((value, compare) => {
+var notAllowedChars = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
-      const format = new RegExp('[' + compare + ']');
+      var format = new RegExp('[' + compare + ']');
       return !format.test(value);
     }
   }
 });
 
 var format = /^([^a-zA-Z]*)$/;
-var notAllowedCharters = (value => {
+var notAllowedCharters = (function (value) {
   if (isString(value) || isNumber(value)) {
     value = value.toString();
 
@@ -222,7 +246,7 @@ var notAllowedCharters = (value => {
 });
 
 var format$1 = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-var notAllowedSpecialChars = ((value, compare) => {
+var notAllowedSpecialChars = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
       return !format$1.test(value);
@@ -230,18 +254,18 @@ var notAllowedSpecialChars = ((value, compare) => {
   }
 });
 
-var notAllowedWords = ((value, compare) => {
+var notAllowedWords = (function (value, compare) {
   if (isString(value)) {
     if (value.length) {
-      const words = compare.replace(',', "|");
-      const pattern = new RegExp(words);
+      var words = compare.replace(',', "|");
+      var pattern = new RegExp(words);
       return !value.match(pattern);
     }
   }
 });
 
 var format$2 = /[0-9A-Fa-f]{6}/g;
-var isHex = (value => {
+var isHex = (function (value) {
   if (isString(value)) {
     if (value.length) {
       if (format$2.test(value)) {
@@ -254,7 +278,7 @@ var isHex = (value => {
 });
 
 var format$3 = /^([^0-9]*)$/;
-var notAllowedNumber = (value => {
+var notAllowedNumber = (function (value) {
   if (isString(value) || isNumber(value)) {
     value = value.toString();
 
@@ -264,7 +288,7 @@ var notAllowedNumber = (value => {
   }
 });
 
-var regex = ((value, compare) => {
+var regex = (function (value, compare) {
   if (isString(value) || isNumber(value)) {
     value = value.toString();
 
@@ -274,8 +298,8 @@ var regex = ((value, compare) => {
   }
 });
 
-let format$4 = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
-var strongPassword = (value => {
+var format$4 = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+var strongPassword = (function (value) {
   if (isString(value)) {
     value = value.toString();
 
@@ -285,8 +309,8 @@ var strongPassword = (value => {
   }
 });
 
-let format$5 = new RegExp('((?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
-var mediumPassword = (value => {
+var format$5 = new RegExp('((?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
+var mediumPassword = (function (value) {
   if (isString(value)) {
     value = value.toString();
 
@@ -296,7 +320,7 @@ var mediumPassword = (value => {
   }
 });
 
-const TYPES = {
+var TYPES = {
   type: isType,
   email: isEmail,
   equal: isEqual,
@@ -305,34 +329,34 @@ const TYPES = {
   uppercase: isUpperCase,
   lowercase: isLowerCase,
   capitalize: isCapitalize,
-  min,
-  max,
-  compare,
-  required,
-  minWords,
-  maxWords,
-  minNumberRange,
-  maxNumberRange,
-  notAllowedChars,
-  notAllowedCharters,
-  notAllowedSpecialChars,
-  notAllowedWords,
-  notAllowedNumber,
-  regex,
-  strongPassword,
-  mediumPassword
+  min: min,
+  max: max,
+  compare: compare,
+  required: required,
+  minWords: minWords,
+  maxWords: maxWords,
+  minNumberRange: minNumberRange,
+  maxNumberRange: maxNumberRange,
+  notAllowedChars: notAllowedChars,
+  notAllowedCharters: notAllowedCharters,
+  notAllowedSpecialChars: notAllowedSpecialChars,
+  notAllowedWords: notAllowedWords,
+  notAllowedNumber: notAllowedNumber,
+  regex: regex,
+  strongPassword: strongPassword,
+  mediumPassword: mediumPassword
 };
-var index = ((data, schema) => {
-  const info = {
+var index = (function (data, schema) {
+  var info = {
     data: isObject(data) ? data : {},
     schema: isObject(schema) ? schema : {},
     errors: {},
     callback: null,
-    set: (name, value, _schema) => {
+    set: function set(name, value, _schema) {
       info.data[name] = value;
       info.schema[name] = _schema;
     },
-    hasError: name => {
+    hasError: function hasError(name) {
       if (name === undefined) {
         return Object.keys(info.errors).length ? true : false;
       }
@@ -341,22 +365,22 @@ var index = ((data, schema) => {
         return Object.keys(info.errors[name]).length ? true : false;
       }
     },
-    errorMessage: name => {
+    errorMessage: function errorMessage(name) {
       if (isString(name)) {
-        const errors = info.getErrors(name);
+        var errors = info.getErrors(name);
 
         if (errors) {
           return errors[Object.keys(errors)[0]];
         }
       } else {
-        for (let _name in info.data) {
+        for (var _name in info.data) {
           if (info.hasError(_name)) {
             return info.errorMessage(_name);
           }
         }
       }
     },
-    getErrors: name => {
+    getErrors: function getErrors(name) {
       if (!name) {
         return info.errors;
       }
@@ -365,8 +389,8 @@ var index = ((data, schema) => {
         return Object.keys(info.errors[name]) ? info.errors[name] : false;
       }
     },
-    removeError: (name, type) => {
-      const errors = info.getErrors(name);
+    removeError: function removeError(name, type) {
+      var errors = info.getErrors(name);
 
       if (errors) {
         if (errors.hasOwnProperty(type)) {
@@ -378,7 +402,7 @@ var index = ((data, schema) => {
         }
       }
     },
-    removeErrors: name => {
+    removeErrors: function removeErrors(name) {
       if (info.hasError(name)) {
         delete info.errors[name];
 
@@ -389,35 +413,35 @@ var index = ((data, schema) => {
     }
   };
 
-  info.validate = () => {
-    for (let fieldName in info.data) {
+  info.validate = function () {
+    for (var fieldName in info.data) {
       if (info.schema[fieldName]) {
-        let value = info.data[fieldName];
-        const schem = info.schema[fieldName];
+        var value = info.data[fieldName];
+        var schem = info.schema[fieldName];
 
         if (isString(value)) {
           value = value.trim();
         }
 
         if (!isObject(schem)) {
-          console.error(new Error(`You passed wrong format in the schema for this ${fieldName}`));
+          console.error(new Error("You passed wrong format in the schema for this " + fieldName));
           break;
         }
 
-        for (let type in schem) {
+        for (var type in schem) {
           if (type == 'nameAlias') {
             continue;
           }
 
           if (TYPES.hasOwnProperty(type)) {
-            let {
-              message,
-              compareVal
-            } = parseType(schem[type]);
-            const compared = TYPES[type](value, compareVal);
+            var _parseType = parseType(schem[type]),
+                message = _parseType.message,
+                compareVal = _parseType.compareVal;
+
+            var compared = TYPES[type](value, compareVal);
 
             if (compared === false) {
-              const field = schem['nameAlias'] || fieldName;
+              var field = schem['nameAlias'] || fieldName;
 
               if (!message && MESSAGES.hasOwnProperty(type)) {
                 message = MESSAGES[type];

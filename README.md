@@ -12,6 +12,9 @@
 npm install --save validex
 ```
 
+> use it with react [react-validex](https://www.npmjs.com/package/react-validex)
+
+
 ## Usage
 
 ```js
