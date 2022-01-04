@@ -39,18 +39,18 @@ if(validator.validate()){
 | email       | value must be an email. `(boolean)`|
 | url         | value must be an url. `(boolean)`|
 | equal       | value must be equal. `(string)`|
-| lowercase   | all the charters must be lowercase. `(boolean)`|
-| uppercase   | all the charters must be uppercase. `(boolean)`|
+| lowercase   | all the characters must be lowercase. `(boolean)`|
+| uppercase   | all the characters must be uppercase. `(boolean)`|
 | capitalize  | required the first charter uppercase. `(boolean)`|
 | hex    | check the value is hex or not. `(boolean)`|
 | maxNumberRange   | check the maximum number range. `(integer)`|
 | minNumberRange   | check the minimum number range. `(integer)`|
 | maxWords       | check the maximum words length. `(integer)`|
 | minWords       | check the minimum words length. `(integer)`|
-| notAllowedChars| check the value contained the some charters or not. `(string)` example: `"abcd.#@"`|
-| notAllowedCharters| `a-zA-Z` charters are not allowed. `(boolean)`|
+| notAllowedChars| check the value contained the some characters or not. `(string)` example: `"abcd.#@"`|
+| notAllowedCharacters| `a-zA-Z` characters are not allowed. `(boolean)`|
 | notAlloweNumber| `0-9` numbers are not allowed. `(boolean)`|
-| notAllowedSpecialChars       | `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/` these charters are not allowed, `(boolean)`|
+| notAllowedSpecialChars       | `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/` these characters are not allowed, `(boolean)`|
 | notAllowedWords   | check the value contained the some words or not. `(string)` example: `"Hello World, Propgrammer, any"`|
 | compare     | validate the value by your self. `(function)`|
 | regex     | compare with regular expression. `(Regex)`|
@@ -120,7 +120,7 @@ const schema = {
 	user_name: {
         required: [true, "$field must be required"], // or you can pass the arra
         type: ['string', "$field must be type of string"],
-        min: [10, "$field minumum charters of $compare"], // $compare will be replaced with 10
+        min: [10, "$field minumum characters of $compare"], // $compare will be replaced with 10
         max: 20,
         notAllowedSpecialChars: true,
 	}
@@ -141,7 +141,7 @@ const schema = {
 
 
 ## Validator Callback
-You can set the validator callback. the call will call when you validate or remove error
+It will call when validate and removeError function call
 
 ```js
 validator.callback = (type, validator) => {
@@ -154,7 +154,7 @@ validator.callback = (type, validator) => {
 
 
 ## Compare
-You validate the value by your self. `@return type boolean`.
+You can validate the value by your self. `@return type boolean`.
 ```js
     {
         compare: (value) => {
@@ -185,7 +185,7 @@ You validate the value by your self. `@return type boolean`.
         minNumberRange,
         maxNumberRange,
         notAllowedChars,
-        notAllowedCharters,
+        notAllowedCharacters,
         notAllowedNumber,
         notAllowedSpecialChars,
         notAllowedWords,
@@ -207,8 +207,8 @@ You validate the value by your self. `@return type boolean`.
     maxWords(value, length)
     minNumberRange(value, length)
     maxNumberRange(value, length)
-    notAllowedChars(value, charters)
-    notAllowedCharters(value)
+    notAllowedChars(value, characters)
+    notAllowedCharacters(value)
     notAllowedNumber(value)
     notAllowedSpecialChars(value)
     notAllowedWords(value, 'Hello World, Programmer')
@@ -218,7 +218,3 @@ You validate the value by your self. `@return type boolean`.
 ```
 
 
-
-## License
-
-MIT © [Naxrul Ahmed](https://github.com/Naxrul Ahmed)

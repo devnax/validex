@@ -235,7 +235,7 @@ var notAllowedChars = (function (value, compare) {
 });
 
 var format = /^([^a-zA-Z]*)$/;
-var notAllowedCharaters = (function (value) {
+var notAllowedCharacters = (function (value) {
   if (isString(value) || isNumber(value)) {
     value = value.toString();
 
@@ -338,7 +338,7 @@ var TYPES = {
   minNumberRange: minNumberRange,
   maxNumberRange: maxNumberRange,
   notAllowedChars: notAllowedChars,
-  notAllowedCharaters: notAllowedCharaters,
+  notAllowedCharacters: notAllowedCharacters,
   notAllowedSpecialChars: notAllowedSpecialChars,
   notAllowedWords: notAllowedWords,
   notAllowedNumber: notAllowedNumber,
@@ -454,7 +454,7 @@ exports.maxWords = maxWords;
 exports.mediumPassword = mediumPassword;
 exports.minNumberRange = minNumberRange;
 exports.minWords = minWords;
-exports.notAllowedCharaters = notAllowedCharaters;
+exports.notAllowedCharacters = notAllowedCharacters;
 exports.notAllowedChars = notAllowedChars;
 exports.notAllowedNumber = notAllowedNumber;
 exports.notAllowedSpecialChars = notAllowedSpecialChars;

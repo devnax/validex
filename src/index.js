@@ -17,7 +17,7 @@ import isCapitalize from './types/isCapitalize'
 import minNumberRange from './types/minNumberRange'
 import maxNumberRange from './types/maxNumberRange'
 import notAllowedChars from './types/notAllowedChars'
-import notAllowedCharaters from './types/notAllowedCharaters'
+import notAllowedCharacters from './types/notAllowedCharacters'
 import notAllowedSpecialChars from './types/notAllowedSpecialChars'
 import notAllowedWords from './types/notAllowedWords'
 import isHex from './types/isHex'
@@ -41,7 +41,7 @@ export {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
-    notAllowedCharaters,
+    notAllowedCharacters,
     notAllowedSpecialChars,
     notAllowedWords,
     notAllowedNumber,
@@ -70,7 +70,7 @@ const TYPES = {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
-    notAllowedCharaters,
+    notAllowedCharacters, 
     notAllowedSpecialChars,
     notAllowedWords,
     notAllowedNumber,

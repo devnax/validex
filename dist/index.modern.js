@@ -235,7 +235,7 @@ var notAllowedChars = (function (value, compare) {
 });
 
 var format = /^([^a-zA-Z]*)$/;
-var notAllowedCharaters = (function (value) {
+var notAllowedCharacters = (function (value) {
   if (isString(value) || isNumber(value)) {
     value = value.toString();
 
@@ -338,7 +338,7 @@ var TYPES = {
   minNumberRange: minNumberRange,
   maxNumberRange: maxNumberRange,
   notAllowedChars: notAllowedChars,
-  notAllowedCharaters: notAllowedCharaters,
+  notAllowedCharacters: notAllowedCharacters,
   notAllowedSpecialChars: notAllowedSpecialChars,
   notAllowedWords: notAllowedWords,
   notAllowedNumber: notAllowedNumber,
@@ -441,5 +441,5 @@ var index = (function (data, schema) {
 });
 
 export default index;
-export { isCapitalize, isEmail, isEqual, isHex, isLowerCase, isType, isUpperCase, isUrl, maxNumberRange, maxWords, mediumPassword, minNumberRange, minWords, notAllowedCharaters, notAllowedChars, notAllowedNumber, notAllowedSpecialChars, notAllowedWords, regex, strongPassword };
+export { isCapitalize, isEmail, isEqual, isHex, isLowerCase, isType, isUpperCase, isUrl, maxNumberRange, maxWords, mediumPassword, minNumberRange, minWords, notAllowedCharacters, notAllowedChars, notAllowedNumber, notAllowedSpecialChars, notAllowedWords, regex, strongPassword };
 //# sourceMappingURL=index.modern.js.map
