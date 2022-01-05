@@ -14,8 +14,11 @@ export default (value, compare) => {
         if(!types.hasOwnProperty(compare)){
             message = `Invalide type given`
             console.error(message, `Available Types are ${Object.keys(types).join(', ')}`)
-            return false
+            return new Error(message)
         }
-        return types[compare](value)
+        
+        if(!types[compare](value)){
+            return new Error('$field must be $compare')
+        }
     }
 }

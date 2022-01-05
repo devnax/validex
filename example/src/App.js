@@ -1,20 +1,39 @@
 import React, {useState} from 'react'
 
-import validex from 'validex'
+import validex, {isString} from 'validex'
 
-const validator = validex({name: "asdsad"}, {
-  name: {
-    min: 2,
-    mediumPassword: true
-  }
+const data = {
+  person: {
+    names: "naxrul",
+    email: "nax@gmail.com"
+  }, 
+  lastname: "ab"
+}
+
+const validator = validex(data, {
+  person: {
+    shape: {
+      name: {
+        min: 102,
+        email: true
+      },
+      email: {
+        email: true
+      }
+    }
+  },
+  lastname: {
+  },
 })
 
 const App = () => {
   const [state, setState] = useState({
-    name: ''
+    name: "",
+    lastname: ""
   })
+
   
-  console.log(validator);
+  //console.log(validator);
 
   return <div>
     <input type="text" value={state.name} 
@@ -22,7 +41,14 @@ const App = () => {
       validator.removeError('name')
       setState({...state,  cn: Math.random()})
     }}/>
-    <p style={{color: 'red'}}>{validator.getError('name')}</p>
+    <p style={{color: 'red'}}>{validator.getError('person')}</p>
+    <input type="text" value={state.lastname} 
+    onChange={(e) => setState({...state, lastname: e.target.value})} onFocus={() => {
+      validator.removeError('lastname')
+      setState({...state,  cn: Math.random()})
+    }}/>
+
+    <p style={{color: 'red'}}>{validator.getError('lastname')}</p>
     <button onClick={() => {
       validator.validate()
       

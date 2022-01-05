@@ -5,7 +5,9 @@ export default (value, compare) => {
         if(value.length){
             const words = compare.replace(',', "|")
             const pattern = new RegExp(words)
-            return  !value.match(pattern);
+            if(value.match(pattern)){
+                return new Error('$compare these words are not allowed in $field')
+            }
         }
     }
     

@@ -1,5 +1,5 @@
-import {isArray, isObject, isFunction, isString, parseType} from './utils'
-import MESSAGES from './messages'
+import {isObject, isFunction, isString, parseType} from './utils'
+export * from './utils'
 
 import min from './types/min'
 import max from './types/max'
@@ -25,6 +25,12 @@ import notAllowedNumber from './types/notAllowedNumber'
 import regex from './types/regex'
 import strongPassword from './types/strongPassword'
 import mediumPassword from './types/mediumPassword'
+import notEqualWith from './types/notEqualWith'
+import oneOfType from './types/oneOfType'
+import oneOf from './types/oneOf'
+import exact from './types/exact'
+import shape from './types/shape'
+
 
 
 export {
@@ -48,6 +54,10 @@ export {
     regex,
     strongPassword,
     mediumPassword,
+    oneOf,
+    oneOfType,
+    exact,
+    shape
 }
 
 
@@ -56,6 +66,7 @@ const TYPES = {
     type: isType,
     email: isEmail,
     equal: isEqual,
+    notEqualWith,
     url: isUrl,
     hex: isHex,
     uppercase: isUpperCase,
@@ -76,7 +87,11 @@ const TYPES = {
     notAllowedNumber,
     regex,
     strongPassword,
-    mediumPassword
+    mediumPassword,
+    oneOf,
+    oneOfType,
+    exact,
+    shape
 }
 
 
@@ -87,53 +102,53 @@ const TYPES = {
 export default (data, schema) => {
    
     
-    const info = {
+    const root = {
         data: isObject(data) ? data : {},
         schema: isObject(schema) ? schema : {},
         errors: {},
         callback: null,
         set: (name, value, _schema) => {
-            info.data[name] = value
-            info.schema[name] = _schema
+            root.data[name] = value
+            root.schema[name] = _schema
         },
         hasError: (name) => {
             if(name === undefined){
-                return Object.keys(info.errors).length ? true : false
+                return Object.keys(root.errors).length ? true : false
             }
-            if(info.errors[name]){
+            if(root.errors[name]){
                 return true
             }
         },
         getError: (name) => {
             if(!name){
-                return info.errors
+                return root.errors
             }
             
-            return info.errors[name]
+            return root.errors[name]
         },
         removeError: (name) => {
-            if(info.errors[name]){
-                delete info.errors[name]
-                if(isFunction(info.callback)){
-                    info.callback('removeError', info)
+            if(root.errors[name]){
+                delete root.errors[name]
+                if(isFunction(root.callback)){
+                    root.callback('removeError', root)
                 }
             }
         }
     }
 
-    info.validate = () => {
+    root.validate = () => {
         
         // comparing
-        for(let fieldName in info.data){
-            if(info.schema[fieldName]){
+        for(let fieldName in root.data){
+            if(root.schema[fieldName]){
                 
-                let value = info.data[fieldName]
-                const schem = info.schema[fieldName]
+                let value = root.data[fieldName]
+                const schem = root.schema[fieldName]
                 if(isString(value)){
                     value = value.trim()
                 }
                 if(!isObject(schem)){
-                    console.error(new Error(`You passed wrong format in the schema for this ${fieldName}`))
+                    console.error(`You passed wrong format in the schema for this ${fieldName}`)
                     break;
                 }
 
@@ -144,37 +159,42 @@ export default (data, schema) => {
                         continue
                     }
 
-
                     if(TYPES.hasOwnProperty(type)){
 
-                        if(info.hasError(fieldName)){
+                        if(root.hasError(fieldName)){
                             break;
                         }
-                        let {message, compareVal} = parseType(schem[type])
-                        const compared = TYPES[type](value, compareVal)
+                        const nameAlias = schem['nameAlias'] || fieldName
+                        let {error, compareVal} = parseType(schem[type])
 
-                        if(compared === false){
-                            const field = schem['nameAlias'] || fieldName
-                            if(!message && MESSAGES.hasOwnProperty(type)){
-                                message = MESSAGES[type]
+                        const isError = TYPES[type](value, compareVal, {root, fieldName, type, nameAlias, prop: schem[type]})
+                        if(isError instanceof Error){
+                            let message = ''
+
+                            if(!(error instanceof Error)){
+                                message = isError.message
+                            }else{
+                                message = error.message
                             }
-                            message = message.replace('$field', field)
-                            message = message.replace('$compare', schem[type])
-                            info.errors[fieldName] = message
+
+                            message = message.replace(/\$field/g, nameAlias)
+                            message = message.replace(/\$compare/g, schem[type])
+                            root.errors[fieldName] = message
                         }
-                        
+                    }else{
+                        console.error(`Invalide type ${type}`)
                     }
                 }
             }
         }
 
 
-        if(isFunction(info.callback)){
-            info.callback('validate', info)
+        if(isFunction(root.callback)){
+            root.callback('validate', root)
         }
 
-        return info.hasError()
+        return root.hasError()
     }
 
-    return info
+    return root
 }

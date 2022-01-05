@@ -1,17 +1,14 @@
 import {isFunction} from '../utils'
 
-export default (value, compare) => {
+export default (value, compare, root) => {
 
     if(!isFunction(compare)){
-        console.error(`compare must be a function`)
-        return false
+        console.error('compare must be a function')
+        return new Error('compare must be a function')
     }
 
     if(value){
-        const check = compare(value)
-        if(typeof check === 'boolean'){
-            return check
-        }
+        return compare(value, root)
     }
     
 }

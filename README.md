@@ -39,9 +39,10 @@ if(validator.validate()){
 | email       | value must be an email. `(boolean)`|
 | url         | value must be an url. `(boolean)`|
 | equal       | value must be equal. `(string)`|
+| notEqualWith| check the value equal with another field. `(string) another field name`|
 | lowercase   | all the characters must be lowercase. `(boolean)`|
 | uppercase   | all the characters must be uppercase. `(boolean)`|
-| capitalize  | required the first charter uppercase. `(boolean)`|
+| capitalize  | required the first characters uppercase. `(boolean)`|
 | hex    | check the value is hex or not. `(boolean)`|
 | maxNumberRange   | check the maximum number range. `(integer)`|
 | minNumberRange   | check the minimum number range. `(integer)`|
@@ -56,6 +57,10 @@ if(validator.validate()){
 | regex     | compare with regular expression. `(Regex)`|
 | strongPassword     | 8 or more characters with a mix of letters, numbers & symbols. `(boolean)`|
 | mediumPassword     | 6 or more characters with a mix of letters, numbers & symbols. `(boolean)`|
+| oneOf     | check the value is included. `(array)`|
+| oneOfType     | check the value multiple types. `(array)`|
+| shape     | check an object field with multiple properties. `(object)`|
+| excat     | check an object field with multiple properties. `(object)`|
 | nameAlias     | just replace the field name. `(string)`|
 
 
@@ -118,9 +123,9 @@ the array contained two indexes
 
 const schema = {
 	user_name: {
-        required: [true, "$field must be required"], // or you can pass the arra
-        type: ['string', "$field must be type of string"],
-        min: [10, "$field minumum characters of $compare"], // $compare will be replaced with 10
+        required: [true, new Error("$field must be required")], // or you can pass the arra
+        type: ['string', new Error("$field must be type of string")],
+        min: [10, new Error("$field minumum characters of $compare")], // $compare will be replaced with 10
         max: 20,
         notAllowedSpecialChars: true,
 	}
@@ -154,10 +159,10 @@ validator.callback = (type, validator) => {
 
 
 ## Compare
-You can validate the value by your self. `@return type boolean`.
+Custom validation with compare. `@return type boolean`.
 ```js
     {
-        compare: (value) => {
+        compare: (value, options) => {
             if(typeof value === 'string' && value.length === 20){
                 return true
             }
@@ -176,20 +181,26 @@ You can validate the value by your self. `@return type boolean`.
         isEmail,
         isEqual,
         isUrl,
+        isHex,
         isUpperCase,
         isLowerCase,
         isCapitalize,
-        isHex,
         minWords,
         maxWords,
         minNumberRange,
         maxNumberRange,
         notAllowedChars,
         notAllowedCharacters,
-        notAllowedNumber,
         notAllowedSpecialChars,
         notAllowedWords,
-        regex
+        notAllowedNumber,
+        regex,
+        strongPassword,
+        mediumPassword,
+        oneOf,
+        oneOfType,
+        exact,
+        shape
     } from 'validex'
 
     // every function has two arguments
@@ -215,6 +226,34 @@ You can validate the value by your self. `@return type boolean`.
     regex(value, expression),
     strongPassword(value),
     mediumPassword(value),
+    oneOf(value, ['public', 'private']),
+    oneOfType(value, ['string', 'number']),
+    shape({
+        name: 'any',
+        email: 'any@example.com'
+    }, {
+        name: {
+            /// validex props
+        }
+    }),
+    
+    exact({
+        name: 'any',
+        email: 'any@example.com'
+    }, {
+        name: {
+            /// validex props
+        }
+    }),
+```
+
+
+
+## Some utilities functions
+
+```js
+import {isObject, isArray, isNumber, isInteger, isString, isBool} from 'validex'
+
 ```
 
 

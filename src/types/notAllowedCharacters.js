@@ -5,8 +5,9 @@ export default (value) => {
     if(isString(value) || isNumber(value)){
         value = value.toString()
         if(value.length){
-            return format.test(value)
+            if(!format.test(value)){
+                return new Error('characters are not allowed in $field')
+            }
         }
     }
-    
 }
