@@ -4,7 +4,9 @@ export default (value, compare) => {
     if(isString(value) || isNumber(value)){
         value = value.toString()
         if(value.length){
-            return compare.test(value)
+            if(!compare.test(value)){
+                return new Error("Invalid value")
+            }
         }
     }
     

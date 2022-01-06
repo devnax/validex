@@ -1,5 +1,64 @@
-import {isString, isObject, isEmpty} from '../utils'
-import validex from '../index'
+import { isObject, isEmpty} from '../utils'
+
+import min from './min'
+import max from './max'
+import isType from './isType'
+import isEmail from './isEmail'
+import compare from './compare'
+import required from './required'
+import isEqual from './isEqual'
+import isUrl from './isUrl'
+import minWords from './minWords'
+import maxWords from './maxWords'
+import isUpperCase from './isUpperCase'
+import isLowerCase from './isLowerCase'
+import isCapitalize from './isCapitalize'
+import minNumberRange from './minNumberRange'
+import maxNumberRange from './maxNumberRange'
+import notAllowedChars from './notAllowedChars'
+import notAllowedCharacters from './notAllowedCharacters'
+import notAllowedSpecialChars from './notAllowedSpecialChars'
+import notAllowedWords from './notAllowedWords'
+import isHex from './isHex'
+import notAllowedNumber from './notAllowedNumber'
+import regex from './regex'
+import strongPassword from './strongPassword'
+import mediumPassword from './mediumPassword'
+import notEqualWith from './notEqualWith'
+import oneOfType from './oneOfType'
+import oneOf from './oneOf'
+
+import Instance from '../instance'
+
+const TYPES = {
+    type: isType,
+    email: isEmail,
+    equal: isEqual,
+    notEqualWith,
+    url: isUrl,
+    hex: isHex,
+    uppercase: isUpperCase,
+    lowercase: isLowerCase,
+    capitalize: isCapitalize,
+    min,
+    max,
+    compare,
+    required,
+    minWords,
+    maxWords,
+    minNumberRange,
+    maxNumberRange,
+    notAllowedChars,
+    notAllowedCharacters, 
+    notAllowedSpecialChars,
+    notAllowedWords,
+    notAllowedNumber,
+    regex,
+    strongPassword,
+    mediumPassword,
+    oneOf,
+    oneOfType,
+}
 
 export default (data, shapeOb) => {
     
@@ -10,7 +69,7 @@ export default (data, shapeOb) => {
     }  
 
     if(isObject(data) && !isEmpty(data)){
-        const check = validex(data, shapeOb)
+        const check = Instance(TYPES, data, shapeOb)
         check.validate()
         if(check.hasError()){
             return new Error("$field "+Object.values(check.errors).join(', $field '))
