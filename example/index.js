@@ -1,4 +1,4 @@
-import validex from '../dist/index.modern.js'
+import validex, {isEmail} from '../dist/index.modern.js'
 
 
 const form = document.querySelector('#form')

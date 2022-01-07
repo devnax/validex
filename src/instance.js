@@ -2,7 +2,7 @@ import {isObject, isFunction, isString, parseType} from './utils'
 
 export default (TYPES, data, schema) => {
    
-    
+
     const root = {
         data: isObject(data) ? data : {},
         schema: isObject(schema) ? schema : {},

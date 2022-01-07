@@ -1,0 +1,51 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Public+Sans:wght@200;300;400;500;600;900&display=swap";
+*{
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    font-family: 'Inter',sans-serif;
+    font-size: 16px;
+}
+
+body{
+    background-color: #f8f8f8;
+}
+
+form{
+    width: 350px;
+    padding: 30px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background-color: #fff;
+    margin: 100px auto;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 25px;
+}
+
+.field{
+    margin: 16px 0;
+}
+
+input, button{
+    width: 100%;
+    border: 0;
+    background: #f7f8f9;
+    padding: 12px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.err{
+    font-size: 14px;
+    color: rgb(197, 14, 14)
+}
+/*# sourceMappingURL=index.a0498f35.css.map */

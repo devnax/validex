@@ -59,7 +59,7 @@ const TYPES = {
     oneOfType,
 }
 
-export default (data, exactOb) => {
+export default (data, exactOb, root) => {
     
     if(!isObject(exactOb)){
         const message = "exact property must be an Object"
@@ -85,8 +85,11 @@ export default (data, exactOb) => {
         }
         const check = Instance(TYPES, data, exactOb)
         check.validate()
-        if(check.hasError()){
-            return new Error("$field "+Object.values(check.errors).join(', $field '))
+        if (check.hasError()) {
+            if (root) {
+                return new Error("$field "+Object.values(check.errors).join(', $field '))
+            }
+            return false
         } else {
             return true
         }

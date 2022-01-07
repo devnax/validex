@@ -1,7 +1,7 @@
 import {isEmpty, isArray} from '../utils'
 import isType from './isType'
 
-export default (value, compare) => {
+export default (value, compare, root) => {
     if(!isArray(compare)){
         const message = "property must be an array"
         console.error(message)
@@ -18,8 +18,11 @@ export default (value, compare) => {
                 break
             }
         }
-        if(!perfect){
-            return new Error("$field must be one of type "+compare.join('|'))
+        if (!perfect) {
+            if (root) {
+                return new Error("$field must be one of type "+compare.join('|'))
+            }
+            return false
         } else {
             return true
         }

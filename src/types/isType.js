@@ -9,7 +9,7 @@ const types = {
     object: (val) => isObject(val),
 }
 
-export default (value, compare) => {
+export default (value, compare, root) => {
     if(value){
         if(!types.hasOwnProperty(compare)){
             message = `Invalide type given`
@@ -17,8 +17,11 @@ export default (value, compare) => {
             return new Error(message)
         }
         
-        if(!types[compare](value)){
-            return new Error('$field must be $compare')
+        if (!types[compare](value)) {
+            if (root) {
+                return new Error('$field must be $compare')
+            }
+            return false
         } else {
             return true
         }
