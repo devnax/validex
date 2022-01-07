@@ -7,6 +7,8 @@ export default (value, compare) => {
         if(value.length){
             if(format.test(value)){
                 return new Error('special characters are not allowed in $field')
+            } else {
+                return true
             }
         }
     }

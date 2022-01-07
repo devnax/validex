@@ -5,6 +5,8 @@ export default (value, compare) => {
         if(value.length){
             if(!(value.split(' ').length <= compare)){
                 return new Error('$field maximum words limit $compare')
+            } else {
+                return true
             }
         }
     }

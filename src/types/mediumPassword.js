@@ -7,6 +7,8 @@ export default (value) => {
         if(value.length){
             if(!format.test(value)){
                 return new Error('use 6 or more characters with a mix of letters, numbers & symbols in $field')
+            } else {
+                return true
             }
         }
     }

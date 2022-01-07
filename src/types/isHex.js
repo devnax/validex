@@ -6,6 +6,8 @@ export default (value) => {
         if(value.length){
             if(!format.test(value)) {
                 return new Error('$field must be a hexadecimal characters')
+            } else {
+                return true
             }
         }
     }

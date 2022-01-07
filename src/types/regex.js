@@ -6,6 +6,8 @@ export default (value, compare) => {
         if(value.length){
             if(!compare.test(value)){
                 return new Error("Invalid value")
+            } else {
+                return true
             }
         }
     }

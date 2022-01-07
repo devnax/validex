@@ -4,6 +4,8 @@ export default (value) => {
         if(value.length){
             if(value !== value.toUpperCase()){
                 return new Error('$field must be uppercase!')
+            } else {
+                return true
             }
         }
     }

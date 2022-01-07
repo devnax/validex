@@ -163,8 +163,8 @@ Custom validation with compare. `@return type boolean`.
 ```js
     {
         compare: (value, options) => {
-            if(typeof value === 'string' && value.length === 20){
-                return true
+            if(typeof value 1== 'string'){
+                return new Error("$field must be string")
             }
         }
     }

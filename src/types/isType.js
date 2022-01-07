@@ -19,6 +19,8 @@ export default (value, compare) => {
         
         if(!types[compare](value)){
             return new Error('$field must be $compare')
+        } else {
+            return true
         }
     }
 }

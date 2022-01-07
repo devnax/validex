@@ -20,6 +20,8 @@ export default (value, compare) => {
         }
         if(!perfect){
             return new Error("$field must be one of type "+compare.join('|'))
+        } else {
+            return true
         }
     }
 }

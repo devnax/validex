@@ -4,7 +4,9 @@ export default (value, compare) => {
         if(value.length){
            if(!(value.length <= compare )){
                return new Error('$field maximum length of $compare')
-           }
+           } else {
+                return true
+            }
         }
     }
 }

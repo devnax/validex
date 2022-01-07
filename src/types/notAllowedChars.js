@@ -6,6 +6,8 @@ export default (value, compare) => {
             const format = new RegExp('['+compare+']')
             if(format.test(value)){
                 return new Error('$compare these characters are not allowed in $field')
+            } else {
+                return true
             }
         }
     }

@@ -8,6 +8,8 @@ export default (value, field_name, {root}) => {
                 const fieldValue = root.data[field_name]
                 if(value.toLowerCase() === fieldValue.toLowerCase()){
                     return new Error("$field not be equal with $compare")
+                } else {
+                    return true
                 }
             }else{
                 console.error(`${field_name} is not exists in data object`)

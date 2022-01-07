@@ -168,6 +168,7 @@ var $8ad481c9cf5a4ab7$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!(value.length >= compare)) return new Error('$field minimum length of $compare');
+            else return true;
         }
     }
 };
@@ -178,6 +179,7 @@ var $9dcc3cb90128f63d$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!(value.length <= compare)) return new Error('$field maximum length of $compare');
+            else return true;
         }
     }
 };
@@ -203,6 +205,7 @@ var $0dc62a8790cee7af$export$2e2bcd8739ae039 = (value, compare)=>{
             return new Error(message);
         }
         if (!$0dc62a8790cee7af$var$types[compare](value)) return new Error('$field must be $compare');
+        else return true;
     }
 };
 
@@ -213,6 +216,7 @@ var $45a2c203fb42db2c$export$2e2bcd8739ae039 = (value)=>{
         if (value.length) {
             const valid = value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
             if (valid == null) return new Error('$field must be an email!');
+            else return true;
         }
     }
 };
@@ -231,6 +235,7 @@ var $05debb3ed4f142bb$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 var $58cbff7fef638a81$export$2e2bcd8739ae039 = (value)=>{
     if ($83e75da502114ee3$export$dd1bc94b04021eeb(value)) return new Error("$field required!");
+    else return true;
 };
 
 
@@ -239,6 +244,7 @@ var $3663b7ea1b937ee7$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (value.toLowerCase() !== compare.toLowerCase()) return new Error('$field must be same as $compare');
+            else return true;
         }
     }
 };
@@ -251,6 +257,7 @@ var $18930b847e76f420$export$2e2bcd8739ae039 = (value)=>{
             if (!value.toLowerCase().match(/ /g)) {
                 var res = value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
                 if (res == null) return new Error('$field must be a valid URL');
+                else return true;
             }
         }
     }
@@ -262,6 +269,7 @@ var $1927745a68e2ae86$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!(value.split(' ').length >= compare)) return new Error('$field minimum words limit $compare');
+            else return true;
         }
     }
 };
@@ -272,6 +280,7 @@ var $0b0cee6eb813ce3f$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!(value.split(' ').length <= compare)) return new Error('$field maximum words limit $compare');
+            else return true;
         }
     }
 };
@@ -282,6 +291,7 @@ var $c05407ac98285c88$export$2e2bcd8739ae039 = (value)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (value !== value.toUpperCase()) return new Error('$field must be uppercase!');
+            else return true;
         }
     }
 };
@@ -292,6 +302,7 @@ var $a983def8f24061df$export$2e2bcd8739ae039 = (value)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (value !== value.toLowerCase()) return new Error('$field must be lowercase!');
+            else return true;
         }
     }
 };
@@ -302,6 +313,7 @@ var $b0f389b4b687e843$export$2e2bcd8739ae039 = (value)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length && value !== value.replace(/(?:^|\s)\S/g, (w)=>w.toUpperCase()
         )) return new Error('$field must be capitalize!');
+        else return true;
     }
 };
 
@@ -311,6 +323,7 @@ var $c8d744b461fe26f0$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$7e4aa119212bc614(value) || $83e75da502114ee3$export$7e4aa119212bc614(value)) {
         if (value.toString().length) {
             if (!(parseInt(value) >= parseInt(compare))) return new Error('$field minimum Range of $compare');
+            else return true;
         }
     }
 };
@@ -321,6 +334,7 @@ var $1c26afe30357d381$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$7e4aa119212bc614(value) || $83e75da502114ee3$export$7e4aa119212bc614(value)) {
         if (value.toString().length) {
             if (!(parseInt(value) <= parseInt(compare))) return new Error('$field maximum Range of $compare');
+            else return true;
         }
     }
 };
@@ -332,6 +346,7 @@ var $bfe321388da19f12$export$2e2bcd8739ae039 = (value, compare)=>{
         if (value.length) {
             const format = new RegExp('[' + compare + ']');
             if (format.test(value)) return new Error('$compare these characters are not allowed in $field');
+            else return true;
         }
     }
 };
@@ -344,6 +359,7 @@ var $598ffc6680c01d87$export$2e2bcd8739ae039 = (value)=>{
         value = value.toString();
         if (value.length) {
             if (!$598ffc6680c01d87$var$format.test(value)) return new Error('characters are not allowed in $field');
+            else return true;
         }
     }
 };
@@ -355,6 +371,7 @@ var $693f83de18183c75$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if ($693f83de18183c75$var$format.test(value)) return new Error('special characters are not allowed in $field');
+            else return true;
         }
     }
 };
@@ -367,6 +384,7 @@ var $ec06ef7ccd14f506$export$2e2bcd8739ae039 = (value, compare)=>{
             const words = compare.replace(',', "|");
             const pattern = new RegExp(words);
             if (value.match(pattern)) return new Error('$compare these words are not allowed in $field');
+            else return true;
         }
     }
 };
@@ -378,6 +396,7 @@ var $cf113bad101eed60$export$2e2bcd8739ae039 = (value)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!$cf113bad101eed60$var$format.test(value)) return new Error('$field must be a hexadecimal characters');
+            else return true;
         }
     }
 };
@@ -390,6 +409,7 @@ var $3c924d77ff8f2d79$export$2e2bcd8739ae039 = (value)=>{
         value = value.toString();
         if (value.length) {
             if (!$3c924d77ff8f2d79$var$format.test(value)) return new Error('number are not allowed in $field');
+            else return true;
         }
     }
 };
@@ -401,6 +421,7 @@ var $431ffb642a3e026b$export$2e2bcd8739ae039 = (value, compare)=>{
         value = value.toString();
         if (value.length) {
             if (!compare.test(value)) return new Error("Invalid value");
+            else return true;
         }
     }
 };
@@ -413,6 +434,7 @@ var $e13bf96212666dc0$export$2e2bcd8739ae039 = (value)=>{
         value = value.toString();
         if (value.length) {
             if (!$e13bf96212666dc0$var$format.test(value)) return new Error("Use $field 8 or more characters with a mix of letters, numbers & symbols.");
+            else return true;
         }
     }
 };
@@ -425,6 +447,7 @@ var $edd1e9bd3fe67bfc$export$2e2bcd8739ae039 = (value)=>{
         value = value.toString();
         if (value.length) {
             if (!$edd1e9bd3fe67bfc$var$format.test(value)) return new Error('use 6 or more characters with a mix of letters, numbers & symbols in $field');
+            else return true;
         }
     }
 };
@@ -437,6 +460,7 @@ var $eade55b204e386c9$export$2e2bcd8739ae039 = (value, field_name, { root: root 
             if (root.data.hasOwnProperty(field_name)) {
                 const fieldValue = root.data[field_name];
                 if (value.toLowerCase() === fieldValue.toLowerCase()) return new Error("$field not be equal with $compare");
+                else return true;
             } else console.error(`${field_name} is not exists in data object`);
         }
     }
@@ -461,6 +485,7 @@ var $fd7f2946b4a5b9f0$export$2e2bcd8739ae039 = (value, compare)=>{
             }
         }
         if (!perfect) return new Error("$field must be one of type " + compare.join('|'));
+        else return true;
     }
 };
 
@@ -475,6 +500,7 @@ var $fd160910cc7fca43$export$2e2bcd8739ae039 = (value, compare)=>{
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!compare.includes(value)) return new Error("$field must be one of " + compare.join('|'));
+            else return true;
         }
     }
 };
@@ -552,6 +578,7 @@ var $0a7e1ac82e3fa83a$export$2e2bcd8739ae039 = (data, exactOb)=>{
         const check = $5a95543c0f9fde5b$export$2e2bcd8739ae039($0a7e1ac82e3fa83a$var$TYPES, data, exactOb);
         check.validate();
         if (check.hasError()) return new Error("$field " + Object.values(check.errors).join(', $field '));
+        else return true;
     }
 };
 
@@ -624,6 +651,7 @@ var $15f3e192ef8b4889$export$2e2bcd8739ae039 = (data, shapeOb)=>{
         const check = $5a95543c0f9fde5b$export$2e2bcd8739ae039($15f3e192ef8b4889$var$TYPES, data, shapeOb);
         check.validate();
         if (check.hasError()) return new Error("$field " + Object.values(check.errors).join(', $field '));
+        else return true;
     }
 };
 

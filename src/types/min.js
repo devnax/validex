@@ -5,6 +5,8 @@ export default (value, compare) => {
         if(value.length){
             if(!(value.length >= compare)){
                 return new Error('$field minimum length of $compare')
+            } else {
+                return true
             }
         }
     }

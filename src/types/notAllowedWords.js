@@ -7,6 +7,8 @@ export default (value, compare) => {
             const pattern = new RegExp(words)
             if(value.match(pattern)){
                 return new Error('$compare these words are not allowed in $field')
+            } else {
+                return true
             }
         }
     }

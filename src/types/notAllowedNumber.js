@@ -7,6 +7,8 @@ export default (value) => {
         if(value.length){
             if(!format.test(value)){
                 return new Error('number are not allowed in $field')
+            } else {
+                return true
             }
         }
     }

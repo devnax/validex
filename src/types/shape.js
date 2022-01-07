@@ -73,7 +73,8 @@ export default (data, shapeOb) => {
         check.validate()
         if(check.hasError()){
             return new Error("$field "+Object.values(check.errors).join(', $field '))
+        } else {
+            return true
         }
-        
     }
 }

@@ -12,6 +12,8 @@ export default (value, compare) => {
         if(value.length){
             if(!compare.includes(value)){
                 return new Error("$field must be one of "+compare.join('|'))
+            } else {
+                return true
             }
         }
     }

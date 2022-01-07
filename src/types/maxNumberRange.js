@@ -5,7 +5,9 @@ export default (value, compare) => {
         if(value.toString().length){
            if(!(parseInt(value) <= parseInt(compare))){
                return new Error('$field maximum Range of $compare')
-           }
+           } else {
+                return true
+            }
         }
     }
 }

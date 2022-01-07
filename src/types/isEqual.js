@@ -5,6 +5,8 @@ export default (value, compare) => {
         if(value.length){
             if(value.toLowerCase() !== compare.toLowerCase()){
                 return new Error('$field must be same as $compare')
+            } else {
+                return true
             }
         }
     }
