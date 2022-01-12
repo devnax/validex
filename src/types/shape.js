@@ -27,7 +27,7 @@ import mediumPassword from './mediumPassword'
 import notEqualWith from './notEqualWith'
 import oneOfType from './oneOfType'
 import oneOf from './oneOf'
-
+import isDate from './isDate'
 import Instance from '../instance'
 
 const TYPES = {
@@ -40,6 +40,7 @@ const TYPES = {
     uppercase: isUpperCase,
     lowercase: isLowerCase,
     capitalize: isCapitalize,
+    date: isDate,
     min,
     max,
     compare,

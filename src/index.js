@@ -29,6 +29,7 @@ import oneOfType from './types/oneOfType'
 import oneOf from './types/oneOf'
 import exact from './types/exact'
 import shape from './types/shape'
+import isDate from './types/isDate'
 
 export * from './utils'
 
@@ -41,6 +42,7 @@ export {
     isUpperCase,
     isLowerCase,
     isCapitalize,
+    isDate,
     minWords,
     maxWords,
     minNumberRange,
@@ -71,6 +73,7 @@ const TYPES = {
     uppercase: isUpperCase,
     lowercase: isLowerCase,
     capitalize: isCapitalize,
+    date: isDate,
     min,
     max,
     compare,
