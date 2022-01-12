@@ -536,6 +536,21 @@ var $0a25c3f360e017a5$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 
+var $8d2f7edf5bea2962$export$2e2bcd8739ae039 = (value, compare, root)=>{
+    let date;
+    if ($fb9ab145a8ccf669$export$844ec244b1367d54(value)) {
+        if (value.length) date = new Date(value);
+    }
+    if (date instanceof Date) {
+        if (date.toString() === 'Invalid Date') {
+            if (root) return new Error('$field must be date formate');
+            return false;
+        } else return true;
+    }
+};
+
+
+
 const $5fe96ccd9f239608$var$TYPES = {
     type: $d40fe8818bab80b4$export$2e2bcd8739ae039,
     email: $ee722d5ad13edb67$export$2e2bcd8739ae039,
@@ -546,6 +561,7 @@ const $5fe96ccd9f239608$var$TYPES = {
     uppercase: $b0e0b22213017a83$export$2e2bcd8739ae039,
     lowercase: $608c0957fecf1924$export$2e2bcd8739ae039,
     capitalize: $c17f96aedde2e5a1$export$2e2bcd8739ae039,
+    date: $8d2f7edf5bea2962$export$2e2bcd8739ae039,
     min: $f87c7917a49f6d4f$export$2e2bcd8739ae039,
     max: $a003b563670259c3$export$2e2bcd8739ae039,
     compare: $9e420da9abb32edf$export$2e2bcd8739ae039,
@@ -615,6 +631,7 @@ var $5fe96ccd9f239608$export$2e2bcd8739ae039 = (data, exactOb, root)=>{
 
 
 
+
 const $ad003b1d8f2f30cb$var$TYPES = {
     type: $d40fe8818bab80b4$export$2e2bcd8739ae039,
     email: $ee722d5ad13edb67$export$2e2bcd8739ae039,
@@ -625,6 +642,7 @@ const $ad003b1d8f2f30cb$var$TYPES = {
     uppercase: $b0e0b22213017a83$export$2e2bcd8739ae039,
     lowercase: $608c0957fecf1924$export$2e2bcd8739ae039,
     capitalize: $c17f96aedde2e5a1$export$2e2bcd8739ae039,
+    date: $8d2f7edf5bea2962$export$2e2bcd8739ae039,
     min: $f87c7917a49f6d4f$export$2e2bcd8739ae039,
     max: $a003b563670259c3$export$2e2bcd8739ae039,
     compare: $9e420da9abb32edf$export$2e2bcd8739ae039,
@@ -662,6 +680,7 @@ var $ad003b1d8f2f30cb$export$2e2bcd8739ae039 = (data, shapeOb, root)=>{
 
 
 
+
 const $42ade68e3adfd77f$var$TYPES = {
     type: $d40fe8818bab80b4$export$2e2bcd8739ae039,
     email: $ee722d5ad13edb67$export$2e2bcd8739ae039,
@@ -672,6 +691,7 @@ const $42ade68e3adfd77f$var$TYPES = {
     uppercase: $b0e0b22213017a83$export$2e2bcd8739ae039,
     lowercase: $608c0957fecf1924$export$2e2bcd8739ae039,
     capitalize: $c17f96aedde2e5a1$export$2e2bcd8739ae039,
+    date: $8d2f7edf5bea2962$export$2e2bcd8739ae039,
     min: $f87c7917a49f6d4f$export$2e2bcd8739ae039,
     max: $a003b563670259c3$export$2e2bcd8739ae039,
     compare: $9e420da9abb32edf$export$2e2bcd8739ae039,
@@ -698,5 +718,5 @@ const $42ade68e3adfd77f$export$dc9851424e3aa5dc = (data, schema)=>$96a9202ad74d1
 var $42ade68e3adfd77f$export$2e2bcd8739ae039 = $42ade68e3adfd77f$export$dc9851424e3aa5dc;
 
 
-export {$42ade68e3adfd77f$export$dc9851424e3aa5dc as validex, $42ade68e3adfd77f$export$2e2bcd8739ae039 as default, $d40fe8818bab80b4$export$2e2bcd8739ae039 as isType, $ee722d5ad13edb67$export$2e2bcd8739ae039 as isEmail, $cc8c5c9fff9c7024$export$2e2bcd8739ae039 as isEqual, $f31b7bb333f8d972$export$2e2bcd8739ae039 as isUrl, $f3f10de667a8d2b4$export$2e2bcd8739ae039 as isHex, $b0e0b22213017a83$export$2e2bcd8739ae039 as isUpperCase, $608c0957fecf1924$export$2e2bcd8739ae039 as isLowerCase, $c17f96aedde2e5a1$export$2e2bcd8739ae039 as isCapitalize, $a76502ee8434104a$export$2e2bcd8739ae039 as minWords, $0449e90f88935030$export$2e2bcd8739ae039 as maxWords, $7ed7f9ab5b38a73b$export$2e2bcd8739ae039 as minNumberRange, $609c50c64edd6954$export$2e2bcd8739ae039 as maxNumberRange, $eb15f4cff8b8db8f$export$2e2bcd8739ae039 as notAllowedChars, $286056663798c8e7$export$2e2bcd8739ae039 as notAllowedCharacters, $a6435590f44aece4$export$2e2bcd8739ae039 as notAllowedSpecialChars, $949243f55673e15b$export$2e2bcd8739ae039 as notAllowedWords, $106513c6fd810d78$export$2e2bcd8739ae039 as notAllowedNumber, $b6e370eb4a1932cf$export$2e2bcd8739ae039 as regex, $c660be645a3c808f$export$2e2bcd8739ae039 as strongPassword, $95e92dd66272db82$export$2e2bcd8739ae039 as mediumPassword, $0a25c3f360e017a5$export$2e2bcd8739ae039 as oneOf, $66d504b5e527ded3$export$2e2bcd8739ae039 as oneOfType, $5fe96ccd9f239608$export$2e2bcd8739ae039 as exact, $ad003b1d8f2f30cb$export$2e2bcd8739ae039 as shape, $fb9ab145a8ccf669$export$f6e2535fb5126e54 as isFunction, $fb9ab145a8ccf669$export$43bee75e5e14138e as isArray, $fb9ab145a8ccf669$export$a6cdc56e425d0d0a as isObject, $fb9ab145a8ccf669$export$844ec244b1367d54 as isString, $fb9ab145a8ccf669$export$7e4aa119212bc614 as isNumber, $fb9ab145a8ccf669$export$a287f47fed4544b8 as isInteger, $fb9ab145a8ccf669$export$28ac561dc09c20ca as isBool, $fb9ab145a8ccf669$export$dd1bc94b04021eeb as isEmpty, $fb9ab145a8ccf669$export$28b8f402ccc88182 as parseType};
+export {$42ade68e3adfd77f$export$dc9851424e3aa5dc as validex, $42ade68e3adfd77f$export$2e2bcd8739ae039 as default, $d40fe8818bab80b4$export$2e2bcd8739ae039 as isType, $ee722d5ad13edb67$export$2e2bcd8739ae039 as isEmail, $cc8c5c9fff9c7024$export$2e2bcd8739ae039 as isEqual, $f31b7bb333f8d972$export$2e2bcd8739ae039 as isUrl, $f3f10de667a8d2b4$export$2e2bcd8739ae039 as isHex, $b0e0b22213017a83$export$2e2bcd8739ae039 as isUpperCase, $608c0957fecf1924$export$2e2bcd8739ae039 as isLowerCase, $c17f96aedde2e5a1$export$2e2bcd8739ae039 as isCapitalize, $8d2f7edf5bea2962$export$2e2bcd8739ae039 as isDate, $a76502ee8434104a$export$2e2bcd8739ae039 as minWords, $0449e90f88935030$export$2e2bcd8739ae039 as maxWords, $7ed7f9ab5b38a73b$export$2e2bcd8739ae039 as minNumberRange, $609c50c64edd6954$export$2e2bcd8739ae039 as maxNumberRange, $eb15f4cff8b8db8f$export$2e2bcd8739ae039 as notAllowedChars, $286056663798c8e7$export$2e2bcd8739ae039 as notAllowedCharacters, $a6435590f44aece4$export$2e2bcd8739ae039 as notAllowedSpecialChars, $949243f55673e15b$export$2e2bcd8739ae039 as notAllowedWords, $106513c6fd810d78$export$2e2bcd8739ae039 as notAllowedNumber, $b6e370eb4a1932cf$export$2e2bcd8739ae039 as regex, $c660be645a3c808f$export$2e2bcd8739ae039 as strongPassword, $95e92dd66272db82$export$2e2bcd8739ae039 as mediumPassword, $0a25c3f360e017a5$export$2e2bcd8739ae039 as oneOf, $66d504b5e527ded3$export$2e2bcd8739ae039 as oneOfType, $5fe96ccd9f239608$export$2e2bcd8739ae039 as exact, $ad003b1d8f2f30cb$export$2e2bcd8739ae039 as shape, $fb9ab145a8ccf669$export$f6e2535fb5126e54 as isFunction, $fb9ab145a8ccf669$export$43bee75e5e14138e as isArray, $fb9ab145a8ccf669$export$a6cdc56e425d0d0a as isObject, $fb9ab145a8ccf669$export$844ec244b1367d54 as isString, $fb9ab145a8ccf669$export$7e4aa119212bc614 as isNumber, $fb9ab145a8ccf669$export$a287f47fed4544b8 as isInteger, $fb9ab145a8ccf669$export$28ac561dc09c20ca as isBool, $fb9ab145a8ccf669$export$dd1bc94b04021eeb as isEmpty, $fb9ab145a8ccf669$export$28b8f402ccc88182 as parseType};
 //# sourceMappingURL=index.modern.js.map

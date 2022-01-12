@@ -33,6 +33,7 @@ $parcel$export(module.exports, "isHex", () => $cf113bad101eed60$export$2e2bcd873
 $parcel$export(module.exports, "isUpperCase", () => $c05407ac98285c88$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "isLowerCase", () => $a983def8f24061df$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "isCapitalize", () => $b0f389b4b687e843$export$2e2bcd8739ae039);
+$parcel$export(module.exports, "isDate", () => $3e7a98fc77853096$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "minWords", () => $1927745a68e2ae86$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "maxWords", () => $0b0cee6eb813ce3f$export$2e2bcd8739ae039);
 $parcel$export(module.exports, "minNumberRange", () => $c8d744b461fe26f0$export$2e2bcd8739ae039);
@@ -584,6 +585,21 @@ var $fd160910cc7fca43$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 
+var $3e7a98fc77853096$export$2e2bcd8739ae039 = (value, compare, root)=>{
+    let date;
+    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+        if (value.length) date = new Date(value);
+    }
+    if (date instanceof Date) {
+        if (date.toString() === 'Invalid Date') {
+            if (root) return new Error('$field must be date formate');
+            return false;
+        } else return true;
+    }
+};
+
+
+
 const $0a7e1ac82e3fa83a$var$TYPES = {
     type: $0dc62a8790cee7af$export$2e2bcd8739ae039,
     email: $45a2c203fb42db2c$export$2e2bcd8739ae039,
@@ -594,6 +610,7 @@ const $0a7e1ac82e3fa83a$var$TYPES = {
     uppercase: $c05407ac98285c88$export$2e2bcd8739ae039,
     lowercase: $a983def8f24061df$export$2e2bcd8739ae039,
     capitalize: $b0f389b4b687e843$export$2e2bcd8739ae039,
+    date: $3e7a98fc77853096$export$2e2bcd8739ae039,
     min: $8ad481c9cf5a4ab7$export$2e2bcd8739ae039,
     max: $9dcc3cb90128f63d$export$2e2bcd8739ae039,
     compare: $05debb3ed4f142bb$export$2e2bcd8739ae039,
@@ -663,6 +680,7 @@ var $0a7e1ac82e3fa83a$export$2e2bcd8739ae039 = (data, exactOb, root)=>{
 
 
 
+
 const $15f3e192ef8b4889$var$TYPES = {
     type: $0dc62a8790cee7af$export$2e2bcd8739ae039,
     email: $45a2c203fb42db2c$export$2e2bcd8739ae039,
@@ -673,6 +691,7 @@ const $15f3e192ef8b4889$var$TYPES = {
     uppercase: $c05407ac98285c88$export$2e2bcd8739ae039,
     lowercase: $a983def8f24061df$export$2e2bcd8739ae039,
     capitalize: $b0f389b4b687e843$export$2e2bcd8739ae039,
+    date: $3e7a98fc77853096$export$2e2bcd8739ae039,
     min: $8ad481c9cf5a4ab7$export$2e2bcd8739ae039,
     max: $9dcc3cb90128f63d$export$2e2bcd8739ae039,
     compare: $05debb3ed4f142bb$export$2e2bcd8739ae039,
@@ -710,6 +729,7 @@ var $15f3e192ef8b4889$export$2e2bcd8739ae039 = (data, shapeOb, root)=>{
 
 
 
+
 const $408b6120c5d8a21f$var$TYPES = {
     type: $0dc62a8790cee7af$export$2e2bcd8739ae039,
     email: $45a2c203fb42db2c$export$2e2bcd8739ae039,
@@ -720,6 +740,7 @@ const $408b6120c5d8a21f$var$TYPES = {
     uppercase: $c05407ac98285c88$export$2e2bcd8739ae039,
     lowercase: $a983def8f24061df$export$2e2bcd8739ae039,
     capitalize: $b0f389b4b687e843$export$2e2bcd8739ae039,
+    date: $3e7a98fc77853096$export$2e2bcd8739ae039,
     min: $8ad481c9cf5a4ab7$export$2e2bcd8739ae039,
     max: $9dcc3cb90128f63d$export$2e2bcd8739ae039,
     compare: $05debb3ed4f142bb$export$2e2bcd8739ae039,
