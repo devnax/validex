@@ -2,7 +2,7 @@ var format = /^([^0-9]*)$/
 import {isString, isNumber} from '../utils'
 
 export default (value, compare, root) => {
-    if(isString(value) || isNumber(value)){
+    if(compare === true && (isString(value) || isNumber(value))){
         value = value.toString()
         if(value.length){
             if (!format.test(value)) {

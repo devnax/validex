@@ -1,7 +1,7 @@
 import {isEmpty} from '../utils'
 
 export default (value, compare, root) => {
-    if (isEmpty(value)) {
+    if (compare === true && isEmpty(value)) {
         if (root) {
             return new Error("$field required!")
         }

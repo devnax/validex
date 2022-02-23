@@ -1,6 +1,6 @@
 import {isString} from '../utils'
 export default (value, compare, root) => {
-    if(isString(value)){
+    if(compare===true && isString(value)){
         if(value.length){
             if (value !== value.toLowerCase()) {
                 if (root) {

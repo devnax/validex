@@ -3,6 +3,10 @@ import {isString} from '../utils'
 export default (value, compare, root) => {
 	let date;
 
+	if(compare !== true){
+		return false
+	}
+
 	if(isString(value)){
 		if(value.length){
 			date = new Date(value)

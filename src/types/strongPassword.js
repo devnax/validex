@@ -2,7 +2,7 @@ import {isString} from '../utils'
 let format = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
 
 export default (value, compare, root) => {
-    if(isString(value)){
+    if(compare === true && isString(value)){
         value = value.toString()
         if(value.length){
             if (!format.test(value)) {
