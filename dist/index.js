@@ -219,7 +219,7 @@ var $0dc62a8790cee7af$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 var $45a2c203fb42db2c$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             const valid = value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
             if (valid == null) {
@@ -243,7 +243,7 @@ var $05debb3ed4f142bb$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 var $58cbff7fef638a81$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$dd1bc94b04021eeb(value)) {
+    if (compare === true && $83e75da502114ee3$export$dd1bc94b04021eeb(value)) {
         if (root) return new Error("$field required!");
         return false;
     } else return true;
@@ -265,7 +265,7 @@ var $3663b7ea1b937ee7$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 var $18930b847e76f420$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!value.toLowerCase().match(/ /g)) {
                 var res = value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -307,7 +307,7 @@ var $0b0cee6eb813ce3f$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 var $c05407ac98285c88$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (value !== value.toUpperCase()) {
                 if (root) return new Error('$field must be uppercase!');
@@ -320,7 +320,7 @@ var $c05407ac98285c88$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 var $a983def8f24061df$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (value !== value.toLowerCase()) {
                 if (root) return new Error('$field must be lowercase!');
@@ -333,7 +333,7 @@ var $a983def8f24061df$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 
 var $b0f389b4b687e843$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length && value !== value.replace(/(?:^|\s)\S/g, (w)=>w.toUpperCase()
         )) {
             if (root) return new Error('$field must be capitalize!');
@@ -386,7 +386,7 @@ var $bfe321388da19f12$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 var $598ffc6680c01d87$var$format = /^([^a-zA-Z]*)$/;
 var $598ffc6680c01d87$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value) || $83e75da502114ee3$export$7e4aa119212bc614(value)) {
+    if (compare === true && ($83e75da502114ee3$export$844ec244b1367d54(value) || $83e75da502114ee3$export$7e4aa119212bc614(value))) {
         value = value.toString();
         if (value.length) {
             if (!$598ffc6680c01d87$var$format.test(value)) {
@@ -401,7 +401,7 @@ var $598ffc6680c01d87$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 var $693f83de18183c75$var$format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 var $693f83de18183c75$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if ($693f83de18183c75$var$format.test(value)) {
                 if (root) return new Error('special characters are not allowed in $field');
@@ -430,7 +430,7 @@ var $ec06ef7ccd14f506$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 var $cf113bad101eed60$var$format = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
 var $cf113bad101eed60$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) {
             if (!$cf113bad101eed60$var$format.test(value)) {
                 if (root) return new Error('$field must be a hexadecimal characters');
@@ -444,7 +444,7 @@ var $cf113bad101eed60$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 var $3c924d77ff8f2d79$var$format = /^([^0-9]*)$/;
 var $3c924d77ff8f2d79$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value) || $83e75da502114ee3$export$7e4aa119212bc614(value)) {
+    if (compare === true && ($83e75da502114ee3$export$844ec244b1367d54(value) || $83e75da502114ee3$export$7e4aa119212bc614(value))) {
         value = value.toString();
         if (value.length) {
             if (!$3c924d77ff8f2d79$var$format.test(value)) {
@@ -473,7 +473,7 @@ var $431ffb642a3e026b$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 let $e13bf96212666dc0$var$format = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
 var $e13bf96212666dc0$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         value = value.toString();
         if (value.length) {
             if (!$e13bf96212666dc0$var$format.test(value)) {
@@ -488,7 +488,7 @@ var $e13bf96212666dc0$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 let $edd1e9bd3fe67bfc$var$format = new RegExp('((?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
 var $edd1e9bd3fe67bfc$export$2e2bcd8739ae039 = (value, compare, root)=>{
-    if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
+    if (compare === true && $83e75da502114ee3$export$844ec244b1367d54(value)) {
         value = value.toString();
         if (value.length) {
             if (!$edd1e9bd3fe67bfc$var$format.test(value)) {
@@ -587,6 +587,7 @@ var $fd160910cc7fca43$export$2e2bcd8739ae039 = (value, compare, root)=>{
 
 var $3e7a98fc77853096$export$2e2bcd8739ae039 = (value, compare, root)=>{
     let date;
+    if (compare !== true) return false;
     if ($83e75da502114ee3$export$844ec244b1367d54(value)) {
         if (value.length) date = new Date(value);
     }

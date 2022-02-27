@@ -37,54 +37,52 @@ export default (TYPES, data, schema) => {
         }
     }
 
+    // {id: 1, name: any} {id: {required: true}}
+
     root.validate = () => {
         
-        // comparing
-        for(let fieldName in root.data){
-            if(root.schema[fieldName]){
+        for(let fieldName in root.schema){
+            let schem = root.schema[fieldName]
+            let value = root.data[fieldName]
+
+            if(isString(value)){
+                value = value.trim()
+            }
+
+            if(!isObject(schem)){
+                console.error(`You passed wrong format in the schema for this ${fieldName}`)
+                break;
+            }
+
+            for(let type in schem){
                 
-                let value = root.data[fieldName]
-                const schem = root.schema[fieldName]
-                if(isString(value)){
-                    value = value.trim()
-                }
-                if(!isObject(schem)){
-                    console.error(`You passed wrong format in the schema for this ${fieldName}`)
-                    break;
+                if(type == 'nameAlias'){
+                    continue
                 }
 
-                for(let type in schem){
-
-                    // avoid some fields
-                    if(type == 'nameAlias'){
-                        continue
+                if(TYPES.hasOwnProperty(type)){
+                    if(root.hasError(fieldName)){
+                        break;
                     }
+                    const nameAlias = schem.nameAlias || fieldName
+                    let {error, compareVal} = parseType(schem[type])
 
-                    if(TYPES.hasOwnProperty(type)){
+                    const isError = TYPES[type](value, compareVal, {root, fieldName, type, nameAlias, prop: schem[type]})
+                    if(isError instanceof Error){
+                        let message = ''
 
-                        if(root.hasError(fieldName)){
-                            break;
+                        if(!(error instanceof Error)){
+                            message = isError.message
+                        }else{
+                            message = error.message
                         }
-                        const nameAlias = schem['nameAlias'] || fieldName
-                        let {error, compareVal} = parseType(schem[type])
 
-                        const isError = TYPES[type](value, compareVal, {root, fieldName, type, nameAlias, prop: schem[type]})
-                        if(isError instanceof Error){
-                            let message = ''
-
-                            if(!(error instanceof Error)){
-                                message = isError.message
-                            }else{
-                                message = error.message
-                            }
-
-                            message = message.replace(/\$field/g, nameAlias)
-                            message = message.replace(/\$compare/g, schem[type])
-                            root.errors[fieldName] = message
-                        }
-                    }else{
-                        console.error(`Invalide type ${type}`)
+                        message = message.replace(/\$field/g, nameAlias)
+                        message = message.replace(/\$compare/g, schem[type])
+                        root.errors[fieldName] = message
                     }
+                }else{
+                    console.error(`Invalide type ${type}`)
                 }
             }
         }
