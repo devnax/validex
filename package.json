@@ -1,36 +1,21 @@
 {
-  "name": "validex",
-  "version": "1.1.6",
-  "description": "The fastest and simple validator",
-  "author": "Naxrul Ahmed",
-  "license": "MIT",
-  "repository": "Naxrul Ahmed/validex",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "source": "src/index.js",
-  "keywords": [
-    "validator",
-    "validation", 
-    "validate",
-    "validex",
-    "schema-validation",
-    "schema validator",
-    "form validation",
-    "data validator",
-    "JSON"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "parcel example/index.html",
-    "watch": "parcel watch --no-cache",
-    "build": "parcel build --no-scope-hoist --no-cache"
-  },
-  "devDependencies": {
-    "parcel": "^2.1.0"
-  },
-  "files": [
-    "dist"
-  ]
+   "name": "validex",
+   "version": "1.0.0",
+   "description": "",
+   "main": "./index.js",
+   "scripts": {
+      "start": "makepack serve",
+      "pack": "makepack pack",
+      "publish:pack": "makepack pack -p"
+   },
+   "dependencies": {},
+   "devDependencies": {
+      "makepack": "latest",
+      "react": "^19.0.0",
+      "react-dom": "^19.0.0",
+      "typescript": "^4.4.2",
+      "@types/react": "^19.0.2",
+      "@types/react-dom": "^19.0.2"
+   },
+   "keywords": []
 }

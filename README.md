@@ -1,260 +1,141 @@
+<p align="center">
+  <a href="https://github.com/devnax/makepack" rel="noopener" target="_blank"><img  src="https://raw.githubusercontent.com/devnax/makepack/main/logo.png" alt="Makepack logo"></a>
+</p>
 
-# validex
+<h1 align="center">Makepack</h1>
 
-> The fastest and simple validator.
+**MakePack** is a command-line interface (CLI) tool that helps you to quickly set up, build, and manage JavaScript, TypeScript, React, and React-TypeScript libraries for use in npm projects. With just a few simple commands, you can generate your own libraries, start a development server, or build and publish your project to the npm repository.
 
-[![NPM](https://img.shields.io/npm/v/validex.svg)](https://www.npmjs.com/package/validex) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+## Installation
 
-
-## Install
+To install **MakePack** globally, run the following command:
 
 ```bash
-npm install --save validex
+npm install -g makepack
 ```
 
-> use it with react [react-validex](https://www.npmjs.com/package/react-validex)
+This will allow you to use the `makepack` command anywhere in your terminal.
 
+## Commands
 
-## Usage
+### `create`
 
-```js
-import validex from 'validex'
+The `create` command is used to create a new library project. It initializes the project structure, configures essential files, and sets up the environment for you to start working on your library.
 
-const validator = validex(data: Object, options: Object)
+#### Usage
 
-if(validator.validate()){
-
-}
+```bash
+makepack create
 ```
 
+#### Description
 
-## Options
+- Creates a new library project by setting up the necessary configurations and boilerplate files.
+  
+This command will guide you through the initial setup for your library.
 
-| Validate               | Description                                                                                            |
-| :--------------------- | :----------------------------------------------------------------------------------------------------- |
-| required               | value must be required. `(boolean)`                                                                    |
-| type                   | `string,number,array,object,bool` check the value type. `(string)`                                     |
-| min                    | check the string's minimum length. `(integer)`                                                         |
-| max                    | check the string's maximum length. `(integer)`                                                         |
-| email                  | value must be an email. `(boolean)`                                                                    |
-| url                    | value must be an url. `(boolean)`                                                                      |
-| equal                  | value must be equal. `(string)`                                                                        |
-| notEqualWith           | check the value equal with another field. `(string) another field name`                                |
-| lowercase              | all the characters must be lowercase. `(boolean)`                                                      |
-| uppercase              | all the characters must be uppercase. `(boolean)`                                                      |
-| capitalize             | required the first characters uppercase. `(boolean)`                                                   |
-| hex                    | check the value is hex or not. `(boolean)`                                                             |
-| maxNumberRange         | check the maximum number range. `(integer)`                                                            |
-| minNumberRange         | check the minimum number range. `(integer)`                                                            |
-| maxWords               | check the maximum words length. `(integer)`                                                            |
-| minWords               | check the minimum words length. `(integer)`                                                            |
-| notAllowedChars        | check the value contained the some characters or not. `(string)` example: `"abcd.#@"`                  |
-| notAllowedCharacters   | `a-zA-Z` characters are not allowed. `(boolean)`                                                       |
-| notAlloweNumber        | `0-9` numbers are not allowed. `(boolean)`                                                             |
-| notAllowedSpecialChars | `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/` these characters are not allowed, `(boolean)`                     |
-| notAllowedWords        | check the value contained the some words or not. `(string)` example: `"Hello World, Propgrammer, any"` |
-| compare                | validate the value by your self. `(function)`                                                          |
-| regex                  | compare with regular expression. `(Regex)`                                                             |
-| strongPassword         | 8 or more characters with a mix of letters, numbers & symbols. `(boolean)`                             |
-| mediumPassword         | 6 or more characters with a mix of letters, numbers & symbols. `(boolean)`                             |
-| oneOf                  | check the value is included. `(array)`                                                                 |
-| oneOfType              | check the value multiple types. `(array)`                                                              |
-| shape                  | check an object field with multiple properties. `(object)`                                             |
-| excat                  | check an object field with multiple properties. `(object)`                                             |
-| date                   | check the value is date or new Date Object. `(boolean)`                                                |
-| nameAlias              | just replace the field name. `(string)`                                                                |
+---
 
+### `serve`
 
-### Example
-```js
-import validex from  'validex'
+The `serve` command starts a development server for your library, providing you with a live-reload environment where you can test and iterate on your library in real-time.
 
-const data = {
-	user_name: 'Jhon Doe',
-	user_email: 'yourname@example.com',
-	user_age: 20
-}
-const schema = {
-	user_name: {
-		nameAlias: "User Name",
-		required: true,
-		type: 'string',
-		capitalize: true,
-		notAllowedSpecialChars: true
-	},
-	user_email: {
-		nameAlias: "Email",
-		email: true,
-		lowercase: true
-	},
-	user_age: {
-		nameAlias: "Age",
-		type: 'number',
-		minNumberRange: 18,
-		maxNumberRange: 30
-	}
-}
-const validator =  validex(data, schema)
+#### Usage
 
-const isValidate = validator.validate()
-
-if(isValidate){
-	// .....
-}
-
-// Or You can the hasError function
-if(!validator.hasError()){
-	// .....
-}
-
-
+```bash
+makepack serve [options]
 ```
 
-### Schema format
+#### Options
 
-In the schema property you can pass single option or you can pass an array.
-the array contained two indexes
+- `-p, --port <number>`  
+  _Port number_ (optional) (default is `5000`).
+  
+- `-e, --root <file>`  
+  _Root file_ (optional) (default is `serve.jsx` or `serve.tsx`). The entry point for your application. Specify the main JavaScript/TypeScript file to start the server.
 
-- 1. Property type
-- 2. Error message
+#### Description
 
-#### Example
+- Starts a local development server for testing and debugging your library.
+  
+Example:
 
-```js
-
-const schema = {
-	user_name: {
-		required: [true, new Error("$field must be required")], // or you can pass the arra
-		type: ['string', new Error("$field must be type of string")],
-		min: [10, new Error("$field minumum characters of $compare")], // $compare will be replaced with 10
-		max: 20,
-		notAllowedSpecialChars: true,
-	}
-}
-
+```bash
+makepack serve --port 4000 --root src/index.ts
 ```
 
-## Validator Methods
+---
 
-| Name          | Description                                                                                                                |
-| :------------ | :------------------------------------------------------------------------------------------------------------------------- |
-| `set`         | Set the data and schema individually. `set(fieldName, value, shema)` Schema will be an Object                              |
-| `hasError`    | check the error is exists or not `@return boolean`. you can also check the field error with this `hasError('user_name')`   |
-| `getError`    | get all the errors with an `object`. If you pass the field name then you can get just the field error message              |
-| `removeError` | if you want you can remove the field error. `removeError('user_name', 'min')` it will remove just user_name min type error |
-| `validate`    | validating the data.                                                                                                       |
+### `pack`
 
+The `pack` command is used to build your library and optionally publish it to the npm repository. This command compiles your code into a distributable format and prepares it for sharing with others.
 
+#### Usage
 
-## Validator Callback
-It will call when validate and removeError function call
-
-```js
-validator.callback = (type, validator) => {
-	if(type === 'removeError'){
-
-	}
-}
-
+```bash
+makepack pack [options]
 ```
 
+#### Options
 
-## Compare
-Custom validation with compare. `@return type boolean`.
-```js
-{
-	compare: (value, options) => {
-		if(typeof value !== 'string'){
-			return new Error("$field must be string")
-		}
-	}
-}
+- `-e, --entry <file>`  
+  _Entry file or directory_ (default is `src/**/*.{tsx,ts,js,jsx}`).  
+  Specify the entry file or use a glob pattern to select the files to include in your library.
+
+- `-p, --publish`  
+  _Publish the project to the npm repository_ (default is `false`).  
+  Add this flag if you want to publish the library to npm after building it.
+
+#### Description
+
+- Builds the project by compiling and bundling your library.
+- Optionally publishes the library to the npm repository.
+
+Example:
+
+```bash
+makepack pack --entry src/index.ts --publish
 ```
 
+This will compile the project from `src/index.ts` and then publish the library to npm.
 
+---
 
+## Example Workflow
 
-## Individually Import
-```js
+1. Create a new project:
 
-import {
-	isType,
-	isEmail,
-	isEqual,
-	isUrl,
-	isHex,
-	isUpperCase,
-	isLowerCase,
-	isCapitalize,
-	minWords,
-	maxWords,
-	minNumberRange,
-	maxNumberRange,
-	notAllowedChars,
-	notAllowedCharacters,
-	notAllowedSpecialChars,
-	notAllowedWords,
-	notAllowedNumber,
-	regex,
-	strongPassword,
-	mediumPassword,
-	oneOf,
-	oneOfType,
-	exact,
-	shape
-} from 'validex'
-
-// every function has two arguments
-// first is value second is compare value
-
-isType(value, 'numbe|object|array|string|bool')
-isEmail(value)
-isEqual(value, compareValue)
-isUrl(value)
-isUpperCase(value)
-isLowerCase(value)
-isCapitalize(value)
-isHex(value)
-minWords(value, length)
-maxWords(value, length)
-minNumberRange(value, length)
-maxNumberRange(value, length)
-notAllowedChars(value, characters)
-notAllowedCharacters(value)
-notAllowedNumber(value)
-notAllowedSpecialChars(value)
-notAllowedWords(value, 'Hello World, Programmer')
-regex(value, expression),
-strongPassword(value),
-mediumPassword(value),
-oneOf(value, ['public', 'private']),
-oneOfType(value, ['string', 'number']),
-shape({
-	name: 'any',
-	email: 'any@example.com'
-}, {
-	name: {
-			/// validex props
-	}
-}),
-
-exact({
-	name: 'any',
-	email: 'any@example.com'
-}, {
-	name: {
-			/// validex props
-	}
-}),
+```bash
+makepack create
 ```
 
+2. Start the server for development:
 
-
-## Some utilities functions
-
-```js
-import {isObject, isArray, isNumber, isInteger, isString, isBool} from 'validex'
-
+```bash
+makepack serve --port 4000 --root index.tsx
 ```
 
+3. Once you're ready to build and publish your library:
 
+```bash
+makepack pack --entry src/**/*.{tsx,ts,js,jsx} --publish
+```
+
+This will build your library and publish it to npm.
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please check out the [contribution guidelines](https://github.com/devnax/makepack).
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+## 📞 Support
+
+For help or suggestions, feel free to open an issue on [GitHub](https://github.com/devnax/makepack/issues) or contact us via [devnaxrul@gmail.com](mailto:devnaxrul@gmail.com).

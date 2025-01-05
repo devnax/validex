@@ -63,6 +63,9 @@ export {
 
 
 
+
+
+
 const TYPES = {
     type: isType,
     email: isEmail,
@@ -83,7 +86,7 @@ const TYPES = {
     minNumberRange,
     maxNumberRange,
     notAllowedChars,
-    notAllowedCharacters, 
+    notAllowedCharacters,
     notAllowedSpecialChars,
     notAllowedWords,
     notAllowedNumber,
